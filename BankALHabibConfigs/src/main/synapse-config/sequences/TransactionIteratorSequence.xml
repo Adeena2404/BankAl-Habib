@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence name="TransactionIteratorSequence" trace="disable" xmlns="http://ws.apache.org/ns/synapse">
+    <property expression="//*[local-name()='TransactionDetails']" name="TransactionDetails" scope="default" type="STRING"/>
+    <log>
+        <property expression="get-property('TransactionDetails')" name="TransactionDetails_Log"/>
+    </log>
+    <switch source="get-property('TransactionDetails')">
+        <case regex="&lt;TransactionDetails xmlns=&quot;http://ws.wso2.org/dataservice&quot;/>">
+            <payloadFactory media-type="json">
+                <format>{&#xd;
+						"message" : "No transaction found to send to bank."&#xd;
+						}</format>
+                <args/>
+            </payloadFactory>
+            <respond/>
+        </case>
+        <default>
+            <iterate expression="//ns:TransactionDetail" id="TransactionIterator" xmlns:ns="http://ws.wso2.org/dataservice">
+                <target>
+                    <sequence>
+                        <property expression="//ns:BankName" name="BankName" scope="default" type="STRING"/>
+                        <property expression="//ns:AgentTransRef" name="AgentTransRef" scope="default" type="STRING"/>
+                        <property expression="//ns:AgentCode" name="AgentCode" scope="default" type="STRING"/>
+                        <property expression="//ns:SendAmount" name="SendAmount" scope="default" type="STRING"/>
+                        <property expression="//ns:RemitterAddress" name="RemitterAddress" scope="default" type="STRING"/>
+                        <property expression="//ns:RemitterMobileNumber" name="RemitterMobileNumber" scope="default" type="STRING"/>
+                        <property expression="//ns:RemitterDOB" name="RemitterDOB" scope="default" type="STRING"/>
+                        <property expression="//ns:RemitterId" name="RemitterId" scope="default" type="STRING"/>
+                        <property expression="//ns:RemitterId1Expiry" name="RemitterId1Expiry" scope="default" type="STRING"/>
+                        <property expression="//ns:RemitterId1Start" name="RemitterId1Start" scope="default" type="STRING"/>
+                        <property expression="//ns:RemitterId1Type" name="RemitterId1Type" scope="default" type="STRING"/>
+                        <property expression="//ns:SendCountry" name="SendCountry" scope="default" type="STRING"/>
+                        <property expression="//ns:RemitterFullName" name="RemitterFullName" scope="default" type="STRING"/>
+                        <property expression="//ns:RemitterNationality" name="RemitterNationality" scope="default" type="STRING"/>
+                        <property expression="//ns:RemitterPlaceOfBirth" name="RemitterPlaceOfBirth" scope="default" type="STRING"/>
+                        <property expression="//ns:BankBranchCode" name="BankBranchCode" scope="default" type="STRING"/>
+                        <property expression="//ns:BenefAc" name="BenefAc" scope="default" type="STRING"/>
+                        <property expression="//ns:BenefBankAccountName" name="BenefBankAccountName" scope="default" type="STRING"/>
+                        <property expression="//ns:BenefAddress" name="BenefAddress" scope="default" type="STRING"/>
+                        <property expression="//ns:BenefBranch" name="BenefBranch" scope="default" type="STRING"/>
+                        <property expression="//ns:BenefMobile" name="BenefMobile" scope="default" type="STRING"/>
+                        <property expression="//ns:BenefCity" name="BenefCity" scope="default" type="STRING"/>
+                        <property expression="//ns:ReceiveCountry" name="ReceiveCountry" scope="default" type="STRING"/>
+                        <property expression="//ns:BenefIdType" name="BenefIdType" scope="default" type="STRING"/>
+                        <property expression="//ns:BenefName" name="BenefName" scope="default" type="STRING"/>
+                        <property expression="//ns:BenefId" name="BenefId" scope="default" type="STRING"/>
+                        <property expression="//ns:DeliveryNotes" name="DeliveryNotes" scope="default" type="STRING"/>
+                        <property expression="//ns:Purpose" name="Purpose" scope="default" type="STRING"/>
+                        <property expression="//ns:TransactionReference" name="TransactionReference" scope="default" type="STRING"/>
+                        <property expression="//ns:RemittBenefRelation" name="RemittBenefRelation" scope="default" type="STRING"/>
+                        <property expression="//ns:SourceOfIncome" name="SourceOfIncome" scope="default" type="STRING"/>
+                        <property expression="//ns:ReceiveAmount" name="ReceiveAmount" scope="default" type="STRING"/>
+                        <store messageStore="TransactionDetailStore" sequence="CreateTransactionSequence"/>
+                    </sequence>
+                </target>
+            </iterate>
+        </default>
+    </switch>
+</sequence>

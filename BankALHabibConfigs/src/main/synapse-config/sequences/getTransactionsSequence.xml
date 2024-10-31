@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence name="getTransactionsSequence" trace="disable" xmlns="http://ws.apache.org/ns/synapse">
+    <send receive="TransactionIteratorSequence">
+        <endpoint key="GetTransactionsEndpoint"/>
+        <!--  dataservice endpoint  -->
+    </send>
+</sequence>

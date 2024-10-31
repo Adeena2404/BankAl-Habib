@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<api context="/bahapi" name="BAH" xmlns="http://ws.apache.org/ns/synapse">
+    <resource methods="POST" uri-template="/CreateTransaction">
+        <inSequence>
+            <sequence key="getTransactionsSequence"/>
+        </inSequence>
+        <outSequence/>
+        <faultSequence/>
+    </resource>
+    <resource methods="GET" uri-template="/TransactionStatus">
+        <inSequence>
+            <sequence key="getBankTransactionsSequence"/>
+        </inSequence>
+        <outSequence/>
+        <faultSequence/>
+    </resource>
+</api>

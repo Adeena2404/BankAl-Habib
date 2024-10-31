@@ -1,0 +1,57 @@
+<data name="transactionService" serviceNamespace="" serviceGroup="" transports="http https">
+  <description />
+  <config id="GetTransactionDI">
+    <property name="driverClassName">com.mysql.jdbc.Driver</property>
+    <property name="url">jdbc:mysql://multi-groceries-db.cx5wkaagxbmx.eu-west-1.rds.amazonaws.com:3306/remitOne</property>
+    <property name="username">admin</property>
+    <property name="password">dobuy10014</property>
+  </config>
+  <query id="GetTransactionQuery" useConfig="GetTransactionDI">
+    <sql>select BankName, ifnull(AgentTransRef,0) 'AgentTransRef' , AgentCode, SendAmount, RemitterAddress, RemitterMobileNumber, RemitterDOB, RemitterId, RemitterId1Start, RemitterId1Expiry, RemitterId1Type, SendCountry, RemitterFullName, RemitterNationality, RemitterPlaceOfBirth, BankBranchCode, BenefAc, BenefBankAccountName, BenefAddress, BenefBranch, BenefMobile, BenefCity, ReceiveCountry, BenefIdType, BenefName, BenefMobile, DeliveryNotes, Purpose, TransactionReference, RemittBenefRelation, SourceOfIncome, ReceiveAmount from RemitOneTransactions where BankName = 'BAH' and (BankTransactionCreated = 0 OR BankTransactionCreated is null);
+</sql>
+    <result rowName="TransactionDetail" element="TransactionDetails" >
+     <element name="BankName" requiredRoles="" xsdType="string" column="BankName" />
+      <element name="AgentTransRef" requiredRoles="" xsdType="string" column="AgentTransRef" />
+      <element name="AgentCode" requiredRoles="" xsdType="string" column="AgentCode" />
+      <element name="SendAmount" requiredRoles="" xsdType="string" column="SendAmount" />
+      <element name="RemitterAddress" requiredRoles="" xsdType="string" column="RemitterAddress" />
+      <element name="RemitterMobileNumber" requiredRoles="" xsdType="string" column="RemitterMobileNumber" />
+      <element name="RemitterDOB" requiredRoles="" xsdType="string" column="RemitterDOB" />
+      <element name="RemitterId" requiredRoles="" xsdType="string" column="RemitterId" />
+      <element name="RemitterId1Expiry" requiredRoles="" xsdType="string" column="RemitterId1Expiry" />
+      <element name="RemitterId1Start" requiredRoles="" xsdType="string" column="RemitterId1Start" />
+      <element name="RemitterId1Type" requiredRoles="" xsdType="string" column="RemitterId1Type" />
+      <element name="SendCountry" requiredRoles="" xsdType="string" column="SendCountry" />
+      <element name="RemitterFullName" requiredRoles="" xsdType="string" column="RemitterFullName" />
+      <element name="RemitterNationality" requiredRoles="" xsdType="string" column="RemitterNationality" />
+      <element name="RemitterPlaceOfBirth" requiredRoles="" xsdType="string" column="RemitterPlaceOfBirth" />
+      <element name="BankBranchCode" requiredRoles="" xsdType="string" column="BankBranchCode" />
+      <element name="BenefAc" requiredRoles="" xsdType="string" column="BenefAc" />
+      <element name="BenefBankAccountName" requiredRoles="" xsdType="string" column="BenefBankAccountName" />
+      <element name="BenefAddress" requiredRoles="" xsdType="string" column="BenefAddress" />
+      <element name="BenefBranch" requiredRoles="" xsdType="string" column="BenefBranch" />
+      <element name="BenefMobile" requiredRoles="" xsdType="string" column="BenefMobile" />
+      <element name="BenefCity" requiredRoles="" xsdType="string" column="BenefCity" />
+      <element name="ReceiveCountry" requiredRoles="" xsdType="string" column="ReceiveCountry" />
+      <element name="BenefIdType" requiredRoles="" xsdType="string" column="BenefIdType" />
+      <element name="BenefName" requiredRoles="" xsdType="string" column="BenefName" />
+      <element name="BenefId" requiredRoles="" xsdType="string" column="BenefId" />
+      <element name="ReceiveCurrency" requiredRoles="" xsdType="string" column="ReceiveCurrency" />
+      <element name="DeliveryNotes" requiredRoles="" xsdType="string" column="DeliveryNotes" />
+      <element name="Purpose" requiredRoles="" xsdType="string" column="Purpose" />
+      <element name="TransactionReference" requiredRoles="" xsdType="string" column="TransactionReference" />
+      <element name="RemittBenefRelation" requiredRoles="" xsdType="string" column="RemittBenefRelation" />
+      <element name="SourceOfIncome" requiredRoles="" xsdType="string" column="SourceOfIncome" />
+      <element name="ReceiveAmount" requiredRoles="" xsdType="string" column="ReceiveAmount" />
+    </result>
+  </query>
+    
+
+  <operation name="GetTransRefOp">
+    <call-query href="GetTransactionQuery" />
+  </operation>
+  <resource path="/getTransactions" method="POST">
+    <description />
+    <call-query href="GetTransactionQuery" />
+  </resource>
+</data>

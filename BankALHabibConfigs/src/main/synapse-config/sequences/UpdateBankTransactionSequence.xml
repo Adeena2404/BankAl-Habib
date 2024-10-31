@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence name="UpdateBankTransactionSequence" trace="disable" xmlns="http://ws.apache.org/ns/synapse">
+    <property expression="get-property('axis2', 'HTTP_SC')" name="HTTP_STATUS_CODE" scope="default" type="STRING"/>
+    <property expression="//*[local-name()='TransactionNo']" name="BankTransactionRef" scope="default" type="STRING"/>
+    <property expression="//*[local-name()='ResponseCode']" name="ResponseCode" scope="default" type="STRING"/>
+    <property expression="//*[local-name()='ResponseStatus']" name="ResponseStatus" scope="default" type="STRING"/>
+    <log level="custom">
+        <property expression="get-property('HTTP_STATUS_CODE')" name="Reponse_Log"/>
+        <property expression="get-property('BankTransactionRef')" name="Reponse_Log"/>
+        <property expression="get-property('ResponseCode')" name="Status_Log"/>
+        <property expression="get-property('ResponseStatus')" name="TransactionNo_Log"/>
+    </log>
+    <switch source="get-property('HTTP_STATUS_CODE')">
+        <case regex="200">
+            <script language="js"><![CDATA[var CurrentDateTime = new Date().toISOString();
+  					  mc.setProperty("currentDateTime", CurrentDateTime, "default");]]></script>
+            <log level="custom">
+                <property expression="get-property('currentDateTime')" name="CurrentDateTime"/>
+            </log>
+            <!-- BankTranaction created but acceptTransaction is in pending status  -->
+            <switch source="get-property('ResponseCode')">
+                <case regex="10041">
+                    <dbreport>
+                        <connection>
+                            <pool>
+                                <driver>com.mysql.jdbc.Driver</driver>
+                                <url>jdbc:mysql://multi-groceries-db.cx5wkaagxbmx.eu-west-1.rds.amazonaws.com:3306/remitOne</url>
+                                <user>admin</user>
+                                <password>dobuy10014</password>
+                            </pool>
+                        </connection>
+                        <statement>
+                            <sql><![CDATA[Update RemitOneTransactions Set BankTransactionCreated = ? , BankTransactionRef = ? where TransactionReference = ?  ]]></sql>
+                            <parameter type="VARCHAR" value="1"/>
+                            <parameter expression="get-property('BankTransactionRef')" type="VARCHAR"/>
+                            <parameter expression="get-property('TransactionReference')" type="VARCHAR"/>
+                        </statement>
+                        <statement>
+                            <sql><![CDATA[
+      	  INSERT INTO BankTransactions (TransactionReference, AcceptTransaction, BankTransactionRef, BankTransactionStatus)
+        VALUES (?, ?, ?, ?)
+    ]]></sql>
+                            <parameter expression="get-property('TransactionReference')" type="VARCHAR"/>
+                            <parameter type="VARCHAR" value="0"/>
+                            <parameter expression="get-property('BankTransactionRef')" type="VARCHAR"/>
+                            <parameter type="VARCHAR" value="Pending"/>
+                        </statement>
+                    </dbreport>
+                    <respond/>
+                </case>
+                <default>
+                    <respond/>
+                </default>
+            </switch>
+        </case>
+        <default/>
+    </switch>
+</sequence>

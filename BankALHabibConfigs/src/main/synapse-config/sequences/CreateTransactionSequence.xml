@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence name="CreateTransactionSequence" trace="disable" xmlns="http://ws.apache.org/ns/synapse">
+    <!--  log all the values which comes from TransactionIterator -->
+    <log level="custom">
+        <property expression="get-property('TransactionIterator')" name="TransactionIteratorLOG"/>
+        <property expression="get-property('BankName')" name="BankName"/>
+        <property expression="get-property('AgentTransRef')" name="AgentTransRef"/>
+        <property expression="get-property('AgentCode')" name="AgentCode"/>
+        <property expression="get-property('SendAmount')" name="SendAmount"/>
+        <property expression="get-property('RemitterAddress')" name="RemitterAddress"/>
+        <property expression="get-property('RemitterMobileNumber')" name="RemitterMobileNumber"/>
+        <property expression="get-property('RemitterDOB')" name="RemitterDOB"/>
+        <property expression="get-property('RemitterId')" name="RemitterId"/>
+        <property expression="get-property('RemitterId1Expiry')" name="RemitterId1Expiry"/>
+        <property expression="get-property('RemitterId1Start')" name="RemitterId1Start"/>
+        <property expression="get-property('RemitterId1Type')" name="RemitterId1Type"/>
+        <property expression="get-property('SendCountry')" name="SendCountry"/>
+        <property expression="get-property('RemitterFullName')" name="RemitterFullName"/>
+        <property expression="get-property('RemitterNationality')" name="RemitterNationality"/>
+        <property expression="get-property('RemitterPlaceOfBirth')" name="RemitterPlaceOfBirth"/>
+        <property expression="get-property('BankBranchCode')" name="BankBranchCode"/>
+        <property expression="get-property('BenefAc')" name="BenefAc"/>
+        <property expression="get-property('BenefBankAccountName')" name="BenefBankAccountName"/>
+        <property expression="get-property('BenefAddress')" name="BenefAddress"/>
+        <property expression="get-property('BenefBranch')" name="BenefBranch"/>
+        <property expression="get-property('BenefMobile')" name="BenefMobile"/>
+        <property expression="get-property('BenefCity')" name="BenefCity"/>
+        <property expression="get-property('ReceiveCountry')" name="ReceiveCountry"/>
+        <property expression="get-property('BenefIdType')" name="BenefIdType"/>
+        <property expression="get-property('BenefName')" name="BenefName"/>
+        <property expression="get-property('BenefId')" name="BenefId"/>
+        <property expression="get-property('DeliveryNotes')" name="DeliveryNotes"/>
+        <property expression="get-property('Purpose')" name="Purpose"/>
+        <property expression="get-property('TransactionReference')" name="TransactionReference"/>
+        <property expression="get-property('RemittBenefRelation')" name="RemittBenefRelation"/>
+        <property expression="get-property('SourceOfIncome')" name="SourceOfIncome"/>
+        <property expression="get-property('ReceiveAmount')" name="ReceiveAmount"/>
+    </log>
+    <!--  take all values form database  -->
+    <dblookup>
+        <connection>
+            <pool>
+                <driver>com.mysql.jdbc.Driver</driver>
+                <url>jdbc:mysql://multi-groceries-db.cx5wkaagxbmx.eu-west-1.rds.amazonaws.com:3306/remitOne</url>
+                <user>admin</user>
+                <password>dobuy10014</password>
+            </pool>
+        </connection>
+        <statement>
+            <sql><![CDATA[
+				 Select Value from Transaction_Credentials WHERE Application = "BAH" and App_key = "App_ID" 
+				]]></sql>
+            <result column="Value" name="App_ID"/>
+        </statement>
+        <statement>
+            <sql><![CDATA[
+			 Select Value from Transaction_Credentials WHERE Application = "BAH" and App_key = "APP_Password" 
+			]]></sql>
+            <result column="Value" name="APP_Password"/>
+        </statement>
+        <statement>
+            <sql><![CDATA[
+			 Select Value from Transaction_Credentials WHERE Application = "BAH" and App_key = "TieUpCode" 
+			]]></sql>
+            <result column="Value" name="TieUpCode"/>
+        </statement>
+        <statement>
+            <sql><![CDATA[
+			 Select Value from Transaction_Credentials WHERE Application = "BAH" and App_key = "UserId" 
+			]]></sql>
+            <result column="Value" name="UserId"/>
+        </statement>
+        <statement>
+            <sql><![CDATA[
+			 Select Value from Transaction_Credentials WHERE Application = "BAH" and App_key = "UserPassword" 
+			]]></sql>
+            <result column="Value" name="UserPassword"/>
+        </statement>
+    </dblookup>
+    <log level="custom" separator=",">
+        <property expression="get-property('App_ID')" name="BAH AppIDLog"/>
+        <property expression="get-property('APP_Password')" name="BAH AppPasswordLog"/>
+        <property expression="get-property('TieUpCode')" name="BAH TieUpCodeLog"/>
+        <property expression="get-property('UserId')" name="BAH UserIdLog"/>
+        <property expression="get-property('UserPassword')" name="BAH UserPasswordLog"/>
+        <property expression="get-property('BankTransactionRef')" name="BankTransactionRef"/>
+    </log>
+    <!--  check the agent_id if agent_id is 0 it takes transaction id  -->
+    <!--     <switch source="get-property('AgentTransRef')">
+        <case regex="0">
+            <property expression="get-property('TransactionRef')" name="TransRef" scope="default" type="STRING"/>
+        </case>
+        <default>
+            <property expression="get-property('AgentTransRef')" name="TransRef" scope="default" type="STRING"/>
+        </default>
+    </switch>
+ -->
+    <payloadFactory media-type="xml">
+        <format>
+            <soapenv:Envelope xmlns:ns="http://schemas.datacontract.org/2004/07/" xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tem="http://tempuri.org/">
+                <soapenv:Body>
+                    <tem:AddTransactionInQueue>
+                        <tem:App_ID>$1</tem:App_ID>
+                        <tem:APP_Password>$2</tem:APP_Password>
+                        <tem:objTrans>
+                            <ns:AgentId>$3</ns:AgentId>
+                            <ns:Amount>$4</ns:Amount>
+                            <ns:ApplicantAddress>$5</ns:ApplicantAddress>
+                            <ns:ApplicantCellNo>$6</ns:ApplicantCellNo>
+                            <ns:ApplicantDOB>$7</ns:ApplicantDOB>
+                            <ns:ApplicantIDNo>$8</ns:ApplicantIDNo>
+                            <ns:ApplicantIDNoExpiryDate>$9</ns:ApplicantIDNoExpiryDate>
+                            <ns:ApplicantIDNoIssueDate>$10</ns:ApplicantIDNoIssueDate>
+                            <ns:ApplicantIDType>$11</ns:ApplicantIDType>
+                            <ns:ApplicantLegalCountry>$12</ns:ApplicantLegalCountry>
+                            <ns:ApplicantName>$13</ns:ApplicantName>
+                            <ns:ApplicantNationality>$14</ns:ApplicantNationality>
+                            <ns:ApplicantPlacedOfBirth>$15</ns:ApplicantPlacedOfBirth>
+                            <ns:BankCode>$16</ns:BankCode>
+                            <ns:BeneficiaryAcc>$17</ns:BeneficiaryAcc>
+                            <ns:BeneficiaryAccTitle>$18</ns:BeneficiaryAccTitle>
+                            <ns:BeneficiaryAddress>$19</ns:BeneficiaryAddress>
+                            <ns:BeneficiaryBranchName>$20</ns:BeneficiaryBranchName>
+                            <ns:BeneficiaryCellNo>$21</ns:BeneficiaryCellNo>
+                            <ns:BeneficiaryCity>$22</ns:BeneficiaryCity>
+                            <ns:BeneficiaryCountry>$23</ns:BeneficiaryCountry>
+                            <ns:BeneficiaryIDType>$24</ns:BeneficiaryIDType>
+                            <ns:BeneficiaryName>$25</ns:BeneficiaryName>
+                            <ns:BeneficiaryNo>$26</ns:BeneficiaryNo>
+                            <ns:DeliveryMode>$27</ns:DeliveryMode>
+                            <ns:PurposeOfTransaction>$28</ns:PurposeOfTransaction>
+                            <ns:ReferenceNo>$29</ns:ReferenceNo>
+                            <ns:Relationship>$30</ns:Relationship>
+                            <ns:SourceOfIncome>$31</ns:SourceOfIncome>
+                            <ns:TieUpCode>$32</ns:TieUpCode>
+                            <ns:TranAmount>$33</ns:TranAmount>
+                            <ns:UserId>$34</ns:UserId>
+                            <ns:UserPassword>$35</ns:UserPassword>
+                            <ns:isIBAN>$36</ns:isIBAN>
+                        </tem:objTrans>
+                        <tem:obj_ResModel/>
+                    </tem:AddTransactionInQueue>
+                </soapenv:Body>
+            </soapenv:Envelope>
+        </format>
+        <args>
+            <arg evaluator="xml" expression="get-property('App_ID')"/>
+            <arg evaluator="xml" expression="get-property('APP_Password')"/>
+            <arg evaluator="xml" expression="get-property('AgentCode')"/>
+            <arg evaluator="xml" expression="get-property('SendAmount')"/>
+            <arg evaluator="xml" expression="get-property('RemitterAddress')"/>
+            <arg evaluator="xml" expression="get-property('RemitterMobileNumber')"/>
+            <arg evaluator="xml" expression="get-property('RemitterDOB')"/>
+            <arg evaluator="xml" expression="get-property('RemitterId')"/>
+            <arg evaluator="xml" expression="get-property('RemitterId1Expiry')"/>
+            <arg evaluator="xml" expression="get-property('RemitterId1Start')"/>
+            <arg evaluator="xml" expression="get-property('RemitterId1Type')"/>
+            <arg evaluator="xml" expression="get-property('SendCountry')"/>
+            <arg evaluator="xml" expression="get-property('RemitterFullName')"/>
+            <arg evaluator="xml" expression="get-property('RemitterNationality')"/>
+            <arg evaluator="xml" expression="get-property('RemitterPlaceOfBirth')"/>
+            <arg evaluator="xml" expression="get-property('BankBranchCode')"/>
+            <arg evaluator="xml" expression="get-property('BenefAc')"/>
+            <arg evaluator="xml" expression="get-property('BenefBankAccountName')"/>
+            <arg evaluator="xml" expression="get-property('BenefAddress')"/>
+            <arg evaluator="xml" expression="get-property('BenefBranch')"/>
+            <arg evaluator="xml" expression="get-property('BenefMobile')"/>
+            <arg evaluator="xml" expression="get-property('BenefCity')"/>
+            <arg evaluator="xml" expression="get-property('ReceiveCountry')"/>
+            <arg evaluator="xml" expression="get-property('BenefIdType')"/>
+            <arg evaluator="xml" expression="get-property('BenefName')"/>
+            <arg evaluator="xml" expression="get-property('BenefId')"/>
+            <arg evaluator="xml" expression="get-property('DeliveryNotes')"/>
+            <arg evaluator="xml" expression="get-property('Purpose')"/>
+            <arg evaluator="xml" expression="get-property('TransactionReference')"/>
+            <arg evaluator="xml" expression="get-property('RemittBenefRelation')"/>
+            <arg evaluator="xml" expression="get-property('SourceOfIncome')"/>
+            <arg evaluator="xml" expression="get-property('TieUpCode')"/>
+            <arg evaluator="xml" expression="get-property('ReceiveAmount')"/>
+            <arg evaluator="xml" expression="get-property('UserId')"/>
+            <arg evaluator="xml" expression="get-property('UserPassword')"/>
+            <arg value="true"/>
+        </args>
+    </payloadFactory>
+    <!-- headers  -->
+    <header name="Content-Type" scope="transport" value="text/xml"/>
+    <header name="SoapAction" scope="transport" value="http://tempuri.org/IService/AddTransactionInQueue"/>
+    <send receive="UpdateBankTransactionSequence">
+        <endpoint key="CreateTransactionEndpoint"/>
+    </send>
+</sequence>
