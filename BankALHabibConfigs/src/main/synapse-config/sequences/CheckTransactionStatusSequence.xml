@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence name="CheckTransactionStatusSequence" trace="disable" xmlns="http://ws.apache.org/ns/synapse">
+
+ <log level="custom">
+        <property expression="get-property('BankTransactionsIteratorSequence')" name="BankTransactionsIteratorSequenceLOG"/>
+        <property expression="get-property('TransactionReference')" name="TransrefLog"/>
+        <property expression="get-property('BankTransactionRef')" name="BankTransactionRefLog"/>
+        <property expression="get-property('BankTransactionCompleted')" name="BankTransactionCompletedLog"/>
+    </log>
+    <!--  take all values form database  -->
+    <dblookup>
+        <connection>
+            <pool>
+               <dsName>MysqlConJNDI1</dsName>
+            </pool>
+        </connection>
+       
+       
+         <statement>
+            <sql><![CDATA[
+				 Select Value from Transaction_Credentials WHERE Application = "BAH" and App_key = "App_ID" 
+				]]></sql>
+            <result column="Value" name="App_ID"/>
+        </statement>
+        <statement>
+            <sql><![CDATA[
+			 Select Value from Transaction_Credentials WHERE Application = "BAH" and App_key = "APP_Password" 
+			]]></sql>
+            <result column="Value" name="APP_Password"/>
+        </statement>
+        <statement>
+            <sql><![CDATA[
+			 Select Value from Transaction_Credentials WHERE Application = "BAH" and App_key = "TieUpCode" 
+			]]></sql>
+            <result column="Value" name="TieUpCode"/>
+        </statement>
+        <statement>
+            <sql><![CDATA[
+			 Select Value from Transaction_Credentials WHERE Application = "BAH" and App_key = "UserId" 
+			]]></sql>
+            <result column="Value" name="UserId"/>
+        </statement>
+        <statement>
+            <sql><![CDATA[
+			 Select Value from Transaction_Credentials WHERE Application = "BAH" and App_key = "UserPassword" 
+			]]></sql>
+            <result column="Value" name="UserPassword"/>
+        </statement>
+   
+   		<statement>
+			<sql>
+			
+					<!-- retrieve the data of same TransactionRef but latest record  -->
+				<![CDATA[ SELECT AcceptTransaction, BankTransactionRef FROM BankTransactions a where a.TransactionRef = ? and StatusDate in (Select max(StatusDate) from BankTransactions b where a.TransactionRef = b.TransactionRef group by b.TransactionRef); ]]>
+				</sql>
+			         <parameter expression="get-property('TransactionRef')" type="VARCHAR" />
+			         <result column="AcceptTransaction" name="AcceptTransaction" />
+			         <result column="BankTransactionRef" name="BankTransactionRef" />
+		</statement>
+ 
+    </dblookup>
+    
+  
+    <payloadFactory media-type="xml">
+        <format>
+            <soapenv:Envelope xmlns:ns="http://schemas.datacontract.org/2004/07/" xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tem="http://tempuri.org/">
+                <soapenv:Header/>
+                <soapenv:Body>
+                    <tem:GetInquiryTransaction>
+                        <tem:App_ID>$1</tem:App_ID>
+                        <tem:APP_Password>$2</tem:APP_Password>
+                        <tem:obj_UserCred>
+                            <ns:AgentId>$3</ns:AgentId>
+                            <ns:ReferenceNo>$4</ns:ReferenceNo>
+                            <ns:Amount>$5</ns:Amount>
+                            <ns:TieUpCode>$6</ns:TieUpCode>
+                            <ns:UserId>$7</ns:UserId>
+                            <ns:UserPassword>$8</ns:UserPassword>
+                            <tem:CityID>$9</tem:CityID>
+                        </tem:obj_UserCred>
+                    </tem:GetInquiryTransaction>
+                </soapenv:Body>
+            </soapenv:Envelope>
+        </format>
+        <args>
+            <arg evaluator="xml" expression="get-property('App_ID')"/>
+            <arg evaluator="xml" expression="get-property('APP_Password')"/>
+            <arg evaluator="xml" expression="get-property('AgentCode')"/>
+            <arg evaluator="xml" expression="get-property('TransactionReference')"/>
+            <arg evaluator="xml" expression="get-property('SendAmount')"/>
+            <arg evaluator="xml" expression="get-property('TieUpCode')"/>
+            <arg evaluator="xml" expression="get-property('UserId')"/>
+            <arg evaluator="xml" expression="get-property('UserPassword')"/>
+            <arg value="1"/>
+        </args>
+    </payloadFactory>
+
+
+	<!--<property name="APIName" scope="default" type="STRING" value="MCBPaymentTransactionStatus" /> -->
+
+	<!-- headers  -->
+    <header name="Content-Type" scope="transport" value="text/xml"/>
+    <header name="SoapAction" scope="transport" value="http://tempuri.org/IService/GetInquiryTransaction"/>
+    
+    
+	<log>
+		<property expression="get-property('AcceptTransaction')"
+			name="AcceptTransactionLog" />
+	</log>
+	
+	
+	<send receive="UpdateStatusSequence">
+		<endpoint key="CreateTransactionEndpoint" />
+	</send>
+</sequence>
+

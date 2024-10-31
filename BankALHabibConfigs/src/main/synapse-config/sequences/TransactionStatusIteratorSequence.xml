@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence name="TransactionStatusIteratorSequence" trace="disable" xmlns="http://ws.apache.org/ns/synapse">
+
+		<property expression="//*[local-name()='TransactionsStatuses']"
+			name="TransactionsStatuses" scope="default" type="STRING" />
+		<log>
+			<property expression="get-property('TransactionsStatuses')"
+				name="TransactionDetails_Log" />
+		</log>
+		<switch source="get-property('TransactionsStatuses')">
+			 <case regex="&lt;TransactionsStatuses xmlns=&quot;http://ws.wso2.org/dataservice&quot;/>">
+       <payloadFactory media-type="json">
+				<format>{ "message" : "No transaction found to check status." }</format>
+				<args />
+			</payloadFactory>
+			<respond />
+		</case>
+			<default>
+				<iterate xmlns:ns="http://ws.wso2.org/dataservice"
+					expression="//ns:TransactionStatus" id="BankTransactionInterator">
+					<target>
+						<sequence>
+							<property expression="//ns:TransactionReference" name="TransactionReference" scope="default" type="STRING" />
+							<property expression="//ns:AgentTransRef" name="AgentTransRef" scope="default" type="STRING" />
+							<property expression="//ns:BankTransactionRef" name="BankTransactionRef" scope="default" type="STRING" />
+							<property expression="//ns:BankTransactionCompleted" name="BankTransactionCompleted" scope="default" type="STRING" />
+							
+							
+							<store messageStore="BankTransactionStore" sequence="CheckTransactionStatusSequence" />
+						</sequence>
+					</target>
+				</iterate>
+			</default>
+		</switch>
+</sequence>

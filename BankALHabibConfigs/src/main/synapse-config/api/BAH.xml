@@ -9,7 +9,7 @@
     </resource>
     <resource methods="GET" uri-template="/TransactionStatus">
         <inSequence>
-            <sequence key="getBankTransactionsSequence"/>
+            <sequence key="GetTransactionStatusSequence"/>
         </inSequence>
         <outSequence/>
         <faultSequence/>
