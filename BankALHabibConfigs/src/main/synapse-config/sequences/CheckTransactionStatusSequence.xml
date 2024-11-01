@@ -7,7 +7,7 @@
         <property expression="get-property('BankTransactionRef')" name="BankTransactionRefLog"/>
         <property expression="get-property('BankTransactionCompleted')" name="BankTransactionCompletedLog"/>
     </log>
-    <!--  take all values form database  -->
+    <!--  take all values form datasource  -->
     <dblookup>
         <connection>
             <pool>
@@ -96,7 +96,7 @@
     </payloadFactory>
 
 
-	<!--<property name="APIName" scope="default" type="STRING" value="MCBPaymentTransactionStatus" /> -->
+	<property name="APIName" scope="default" type="STRING" value="BAHPaymentTransactionStatus" /> 
 
 	<!-- headers  -->
     <header name="Content-Type" scope="transport" value="text/xml"/>

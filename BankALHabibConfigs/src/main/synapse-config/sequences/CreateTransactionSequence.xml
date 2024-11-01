@@ -39,13 +39,10 @@
     <!--  take all values form database  -->
     <dblookup>
         <connection>
-            <pool>
-                <driver>com.mysql.jdbc.Driver</driver>
-                <url>jdbc:mysql://multi-groceries-db.cx5wkaagxbmx.eu-west-1.rds.amazonaws.com:3306/remitOne</url>
-                <user>admin</user>
-                <password>dobuy10014</password>
-            </pool>
-        </connection>
+			<pool>
+			<dsName>MysqlConJNDI1</dsName>  
+			</pool>
+		</connection>
         <statement>
             <sql><![CDATA[
 				 Select Value from Transaction_Credentials WHERE Application = "BAH" and App_key = "App_ID" 

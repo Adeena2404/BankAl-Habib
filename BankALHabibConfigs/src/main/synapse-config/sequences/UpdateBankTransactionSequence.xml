@@ -21,14 +21,12 @@
             <switch source="get-property('ResponseCode')">
                 <case regex="10041">
                     <dbreport>
-                        <connection>
-                            <pool>
-                                <driver>com.mysql.jdbc.Driver</driver>
-                                <url>jdbc:mysql://multi-groceries-db.cx5wkaagxbmx.eu-west-1.rds.amazonaws.com:3306/remitOne</url>
-                                <user>admin</user>
-                                <password>dobuy10014</password>
-                            </pool>
-                        </connection>
+                       <connection>
+							<pool>
+							<dsName>MysqlConJNDI1</dsName>
+							</pool>
+					</connection>
+
                         <statement>
                             <sql><![CDATA[Update RemitOneTransactions Set BankTransactionCreated = ? , BankTransactionRef = ? where TransactionReference = ?  ]]></sql>
                             <parameter type="VARCHAR" value="1"/>

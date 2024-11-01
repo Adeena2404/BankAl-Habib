@@ -1,91 +1,133 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <sequence name="UpdateStatusSequence" trace="disable" xmlns="http://ws.apache.org/ns/synapse">
-    <property expression="json-eval($)" name="GetInquiryTransactionResponse" scope="default" type="STRING"/>
-    <property expression="json-eval($.description)" name="Status" scope="default" type="STRING"/>
-    <log level="custom">
-        <property expression="get-property('GetInquiryTransactionResponse')" name="GetInquiryTransactionResponse_log"/>
-        <property expression="get-property('Status')" name="Status_Log"/>
-        <property expression="get-property('TransactionReference')" name="TransactionReference_Log"/>
-    </log>
-    <switch source="get-property('Status')">
-        <case regex="Complete">
-            <script language="js"><![CDATA[var currentDate = new Date(); var formattedDate = currentDate.getFullYear() + "-" + (currentDate.getMonth() + 1) + "-" + currentDate.getDate() + " " + currentDate.getHours() + ":" + currentDate.getMinutes() + ":" + currentDate.getSeconds(); mc.setProperty("currentDateTime", formattedDate);]]></script>
-            <log level="custom">
-                <property expression="get-property('currentDateTime')" name="CurrentDateTime"/>
-            </log>
-            <dbreport>
-                <connection>
-                    <pool>
-                        <driver>com.mysql.jdbc.Driver</driver>
-                        <url>jdbc:mysql://multi-groceries-db.cx5wkaagxbmx.eu-west-1.rds.amazonaws.com:3306/remitOne</url>
-                        <user>admin</user>
-                        <password>dobuy10014</password>
-                    </pool>
-                </connection>
-                <statement>
-                    <sql><![CDATA[
-		 Update RemitOneTransactions Set BankTransactionCompleted = ?, BankTransactionCompltedDate = ? where TransactionReference = ? 
-		]]></sql>
-                    <parameter type="VARCHAR" value="1"/>
-                    <parameter expression="get-property('currentDateTime')" type="DATE"/>
-                    <parameter expression="get-property('TransactionReference')" type="VARCHAR"/>
-                </statement>
-                <statement>
-                    <sql><![CDATA[
-		 INSERT INTO BankTransactions (TransactionReference, AcceptTransaction, BankTransactionRef, BankTransactionStatus) VALUES (?, ?, ?, ?) 
-		]]></sql>
-                    <parameter expression="get-property('TransactionReference')" type="VARCHAR"/>
-                    <parameter expression="get-property('AcceptTransaction')" type="VARCHAR"/>
-                    <parameter expression="get-property('BankTransactionRef')" type="VARCHAR"/>
-                    <parameter expression="get-property('Status')" type="VARCHAR"/>
-                </statement>
-            </dbreport>
-            <respond/>
-        </case>
-        <case regex="Received|Delivered">
-            <dbreport>
-                <connection>
-                    <pool>
-                        <driver>com.mysql.jdbc.Driver</driver>
-                        <url>jdbc:mysql://multi-groceries-db.cx5wkaagxbmx.eu-west-1.rds.amazonaws.com:3306/remitOne</url>
-                        <user>admin</user>
-                        <password>dobuy10014</password>
-                    </pool>
-                </connection>
-                <statement>
-                    <sql><![CDATA[
-		 INSERT INTO BankTransactions (TransactionReference, AcceptTransaction, BankTransactionRef, BankTransactionStatus) VALUES (?, ?, ?, ?) 
-		]]></sql>
-                    <parameter expression="get-property('TransactionReference')" type="VARCHAR"/>
-                    <parameter expression="get-property('AcceptTransaction')" type="VARCHAR"/>
-                    <parameter expression="get-property('BankTransactionRef')" type="VARCHAR"/>
-                    <parameter expression="get-property('Status')" type="VARCHAR"/>
-                </statement>
-            </dbreport>
-            <respond/>
-        </case>
-        <case regex="Cancelled">
-            <dbreport>
-                <connection>
-                    <pool>
-                        <driver>com.mysql.jdbc.Driver</driver>
-                        <url>jdbc:mysql://multi-groceries-db.cx5wkaagxbmx.eu-west-1.rds.amazonaws.com:3306/remitOne</url>
-                        <user>admin</user>
-                        <password>dobuy10014</password>
-                    </pool>
-                </connection>
-                <statement>
-                    <sql><![CDATA[
-		 INSERT INTO BankTransactions (TransactionReference, AcceptTransaction, BankTransactionRef, BankTransactionStatus) VALUES (?, ?, ?, ?) 
-		]]></sql>
-                    <parameter expression="get-property('TransactionReference')" type="VARCHAR"/>
-                    <parameter expression="get-property('AcceptTransaction')" type="VARCHAR"/>
-                    <parameter expression="get-property('BankTransactionRef')" type="VARCHAR"/>
-                    <parameter expression="get-property('Status')" type="VARCHAR"/>
-                </statement>
-            </dbreport>
-            <respond/>
-        </case>
-        <default/>
-    </switch>
-</sequence>
+    <property expression="get-property('axis2', 'HTTP_SC')" name="HTTP_STATUS_CODE" scope="default" type="STRING"/>
+    <property expression="//description" name="Status" scope="default" type="STRING"/>
+
+	
+	
+	<log level="custom">
+			<property expression="get-property('CreateTrans_HTTP_STATUS_CODE')" name="Reponse_Log"/>
+			<property expression="get-property('BankTransactionRef')" name="BankTransRef_Log"/>
+			<property expression="get-property('Status')" name="Status_Log"/>
+			<property expression="get-property('AcceptTransaction')" name="AcceptTransactionLog"/>
+	</log>
+    
+		<script language="js">
+				<![CDATA[ var CurrentDateTime = new Date().toISOString();
+                 mc.setProperty("currentDateTime", CurrentDateTime, "default"); ]]>
+		</script>
+		<log level="custom">
+				<property expression="get-property('currentDateTime')" name="CurrentDateTime2"/>
+		</log>
+    
+    
+	    <property name="APIEndpoint" scope="default" type="STRING" value="https://uatwsrtps.bankalhabib.com/WS_RTPS/Service.svc"/>
+	
+	
+		<dbreport>
+			<connection>
+				<pool>
+					<dsName>MysqlConJNDI1</dsName>
+				</pool>
+			</connection>
+			<statement>
+				<sql>
+	<![CDATA[ insert Into API_Logs (APIName, Endpoint, RequestBody, ResponseCode, RequestDateTime) Values (?, ?, ?, ?, ?) ]]>
+	</sql>
+				<parameter expression="get-property('APIName')"
+					type="VARCHAR" />
+				<parameter expression="get-property('APIEndpoint')"
+					type="VARCHAR" />
+				<parameter
+					expression="get-property('GetPayoutTransactionsRequest')"
+					type="VARCHAR" />
+				<parameter
+					expression="get-property('HTTP_STATUS_CODE')"
+					type="VARCHAR" />
+				<parameter expression="get-property('currentDateTime')"
+					type="VARCHAR" />
+			</statement>
+		</dbreport>
+
+		
+		<switch source="get-property('CreateTrans_HTTP_STATUS_CODE')">
+		<case regex="200">
+			<switch source="get-property('Status')">
+				<case regex="17">
+					<log level="custom">
+						<property expression="get-property('Status')" name="Status1" />
+					</log>
+					<dbreport>
+						<connection>
+							<pool>
+								<dsName>MysqlConJNDI1</dsName>
+							</pool>
+						</connection>
+						<statement>
+							<sql>
+		<![CDATA[ Update RemitOneTransactions Set BankTransactionCompleted = ? where TransactionReference = ? ]]>
+		</sql>
+							<parameter type="VARCHAR" value="1" />
+							<parameter expression="get-property('TransactionReference')"
+								type="VARCHAR" />
+						</statement>
+						<statement>
+							<sql>
+		<![CDATA[ INSERT INTO BankTransactions (TransactionRef, AcceptTransaction, BankTransactionRef, BankTransactionStatus, Comments) VALUES (?,?, ?, ?, ?) ]]>
+		</sql>
+							<parameter expression="get-property('TransactionReference')"
+								type="VARCHAR" />
+							<parameter expression="get-property('AcceptTransaction')"
+								type="NUMERIC" />
+							<parameter
+								expression="get-property('BankTransactionRef')" type="VARCHAR" />
+							<parameter type="VARCHAR" value="Paid" />
+							<parameter expression="get-property('StatusMessage')"
+								type="VARCHAR" />
+						</statement>
+					</dbreport>
+					<respond />
+				</case>
+				
+				<default>
+			<log level="custom">
+				<property expression="get-property('Status')" name="Status1" />
+			</log>
+			
+
+			<dbreport>
+		<connection>
+			<pool>
+				<dsName>MysqlConJNDI1</dsName>
+			</pool>
+		</connection>
+			<statement>
+				<sql>
+		<![CDATA[ Update RemitOneTransactions Set BankTransactionError = ? where TransactionReference = ? ]]>
+		</sql>
+				<parameter type="VARCHAR" value="1" />
+				<parameter expression="get-property('TransactionReference')"
+					type="VARCHAR" />
+			</statement>
+			<statement>
+				<sql>
+		<![CDATA[ INSERT INTO BankTransactions (TransactionRef, AcceptTransaction, BankTransactionRef, BankTransactionStatus, Comments) VALUES (?, ?, ?, ?, ?) ]]>
+		</sql>
+				<parameter expression="get-property('TransactionReference')"
+					type="VARCHAR" />
+				<parameter expression="get-property('AcceptTransaction')"
+					type="NUMERIC" />
+				<parameter expression="get-property('BankTransactionRef')"
+					type="VARCHAR" />
+				<parameter type="VARCHAR" value="Error" />
+				<parameter expression="get-property('StatusMessage')"
+					type="VARCHAR" />
+			</statement>
+		</dbreport>
+		<respond/>
+		</default>
+		</switch>
+		</case>
+		<default/>
+		</switch>
+		</sequence>
