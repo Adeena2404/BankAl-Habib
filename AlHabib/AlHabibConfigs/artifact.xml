@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?><artifacts>
+    <artifact name="BAHconnector" groupId="com.example.api" version="1.0.0" type="synapse/api" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/api/BAHconnector.xml</file>
+    </artifact>
+    <artifact name="BAHconnector_swagger" groupId="com.example.metadata" version="1.0.0" type="synapse/metadata" serverRole="EnterpriseServiceBus">
+        <file>src/main/resources/metadata/BAHconnector_swagger.yaml</file>
+    </artifact>
+    <artifact name="BAHconnector_metadata" groupId="com.example.metadata" version="1.0.0" type="synapse/metadata" serverRole="EnterpriseServiceBus">
+        <file>src/main/resources/metadata/BAHconnector_metadata.yaml</file>
+    </artifact>
+    <artifact name="BAHDataMappingSequence" groupId="com.example.sequence" version="1.0.0" type="synapse/sequence" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/sequences/BAHDataMappingSequence.xml</file>
+    </artifact>
+    <artifact name="CreateTransactionSequence" groupId="com.example.sequence" version="1.0.0" type="synapse/sequence" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/sequences/CreateTransactionSequence.xml</file>
+    </artifact>
+    <artifact name="CreateTransactionEndpoint" groupId="com.example.endpoint" version="1.0.0" type="synapse/endpoint" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/endpoints/CreateTransactionEndpoint.xml</file>
+    </artifact>
+    <artifact name="CreateTransactionResponseSequence" groupId="com.example.sequence" version="1.0.0" type="synapse/sequence" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/sequences/CreateTransactionResponseSequence.xml</file>
+    </artifact>
+</artifacts>
