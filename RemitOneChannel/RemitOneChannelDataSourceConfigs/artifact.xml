@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?><artifacts>
+    <artifact name="datasource" groupId="com.evantagesoft.usihub.channel.remitone.datasource" version="5.2.42" type="datasource/datasource" serverRole="DataServicesServer">
+        <file>datasource/datasource.xml</file>
+    </artifact>
+    <artifact name="RemitOneDatasource" groupId="com.evantagesoft.usihub.channel.remitone.datasource" version="5.2.42" type="datasource/datasource" serverRole="DataServicesServer">
+        <file>datasource/RemitOneDatasource.xml</file>
+    </artifact>
+</artifacts>

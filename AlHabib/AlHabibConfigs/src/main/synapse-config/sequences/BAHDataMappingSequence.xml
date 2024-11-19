@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence name="BAHDataMappingSequence" trace="disable" xmlns="http://ws.apache.org/ns/synapse">
+    <propertyGroup>
+        <property name="AccountNo" scope="default" type="STRING" value="5A50081000003016"/>
+        <property name="AgentId" scope="default" type="STRING" value="27110"/>
+        <property expression="json-eval($.transaction.send_amount)" name="SendAmount" scope="default" type="STRING"/>
+        <property expression="json-eval($.sender.address)" name="RemitterAddress" scope="default" type="STRING"/>
+        <property expression="json-eval($.sender.mobile)" name="RemitterMobileNumber" scope="default" type="STRING"/>
+        <property expression="json-eval($.sender.dob)" name="RemitterDOB" scope="default" type="STRING"/>
+        <property expression="json-eval($.sender.id)" name="RemitterId" scope="default" type="STRING"/>
+        <property expression="json-eval($.sender.Document.id1expiry)" name="RemitterId1Expiry" scope="default" type="STRING"/>
+        <property expression="json-eval($.sender.Document.id1start)" name="RemitterId1Start" scope="default" type="STRING"/>
+        <property expression="json-eval($.sender.Document.id1type)" name="RemitterId1Type" scope="default" type="STRING"/>
+        <property expression="json-eval($.sender.country)" name="SendCountry" scope="default" type="STRING"/>
+        <property expression="json-eval($.sender.full_name)" name="RemitterFullName" scope="default" type="STRING"/>
+        <property expression="json-eval($.sender.nationality)" name="RemitterNationality" scope="default" type="STRING"/>
+        <property expression="json-eval($.sender.place_of_birth)" name="RemitterPlaceOfBirth" scope="default" type="STRING"/>
+        <property expression="json-eval($.BankBranchCode)" name="BankBranchCode" scope="default" type="STRING"/>
+        <property expression="json-eval($.receiver.account.account_number)" name="BenefAc" scope="default" type="STRING"/>
+        <property expression="json-eval($.receiver.bank.name)" name="BenefBankAccountName" scope="default" type="STRING"/>
+        <property expression="json-eval($.receiver.address.address1)" name="BenefAddress" scope="default" type="STRING"/>
+        <property expression="json-eval($.receiver.bank.bank_branch_name)" name="BenefBranch" scope="default" type="STRING"/>
+        <property expression="json-eval($.receiver.mobile_number)" name="BenefMobile" scope="default" type="STRING"/>
+        <property expression="json-eval($.receiver.town)" name="BenefCity" scope="default" type="STRING"/>
+        <property expression="json-eval($.receiver.receive_country)" name="ReceiveCountry" scope="default" type="STRING"/>
+        <property expression="json-eval($.receiver.Document.id_type)" name="BenefIdType" scope="default" type="STRING"/>
+        <property expression="json-eval($.receiver.full_name)" name="BenefName" scope="default" type="STRING"/>
+        <property expression="json-eval($.receiver.id)" name="BenefId" scope="default" type="STRING"/>
+        <property name="CurrencyID" scope="default" type="STRING" value="169"/>
+        <property name="DeliveryMode" scope="default" type="STRING" value="2"/>
+        <property name="EntryMode" scope="default" type="STRING" value="Instant"/>
+        <property name="OnlineStatus" scope="default" type="STRING" value="1"/>
+        <property expression="json-eval($.sender.purpose)" name="Purpose" scope="default" type="STRING"/>
+        <property expression="json-eval($.agent.referenceID)" name="TransactionReference" scope="default" type="STRING"/>
+        <property expression="json-eval($.receiver.relation_code)" name="RemittBenefRelation" scope="default" type="STRING"/>
+        <property name="SMSResponse" scope="default" type="STRING" value="true"/>
+        <property name="SessionID" scope="default" type="STRING" value="123"/>
+        <property expression="json-eval($.sender.source_of_income)" name="SourceOfIncome" scope="default" type="STRING"/>
+        <property name="StatusCode" scope="default" type="STRING" value="0"/>
+        <property name="TieUpCode" scope="default" type="STRING" value="abc"/>
+        <property expression="json-eval($.transaction.receive_amount)" name="ReceiveAmount" scope="default" type="STRING"/>
+        <property name="isIBAN" scope="default" type="STRING" value="true"/>
+    </propertyGroup>
+    <!-- Log mediator to print all properties -->
+    <log level="full">
+        <property expression="get-property('AccountNo')" name="AccountNo"/>
+        <property expression="get-property('AgentId')" name="AgentId"/>
+        <property expression="get-property('SendAmount')" name="SendAmount"/>
+        <property expression="get-property('RemitterAddress')" name="RemitterAddress"/>
+        <property expression="get-property('RemitterMobileNumber')" name="RemitterMobileNumber"/>
+        <property expression="get-property('RemitterDOB')" name="RemitterDOB"/>
+        <property expression="get-property('RemitterId')" name="RemitterId"/>
+        <property expression="get-property('RemitterId1Expiry')" name="RemitterId1Expiry"/>
+        <property expression="get-property('RemitterId1Start')" name="RemitterId1Start"/>
+        <property expression="get-property('RemitterId1Type')" name="RemitterId1Type"/>
+        <property expression="get-property('SendCountry')" name="SendCountry"/>
+        <property expression="get-property('RemitterFullName')" name="RemitterFullName"/>
+        <property expression="get-property('RemitterNationality')" name="RemitterNationality"/>
+        <property expression="get-property('RemitterPlaceOfBirth')" name="RemitterPlaceOfBirth"/>
+        <property expression="get-property('BankBranchCode')" name="BankBranchCode"/>
+        <property expression="get-property('BenefAc')" name="BenefAc"/>
+        <property expression="get-property('BenefBankAccountName')" name="BenefBankAccountName"/>
+        <property expression="get-property('BenefAddress')" name="BenefAddress"/>
+        <property expression="get-property('BenefBranch')" name="BenefBranch"/>
+        <property expression="get-property('BenefMobile')" name="BenefMobile"/>
+        <property expression="get-property('BenefCity')" name="BenefCity"/>
+        <property expression="get-property('ReceiveCountry')" name="ReceiveCountry"/>
+        <property expression="get-property('BenefIdType')" name="BenefIdType"/>
+        <property expression="get-property('BenefName')" name="BenefName"/>
+        <property expression="get-property('BenefId')" name="BenefId"/>
+        <property expression="get-property('CurrencyID')" name="CurrencyID"/>
+        <property expression="get-property('DeliveryMode')" name="DeliveryMode"/>
+        <property expression="get-property('EntryMode')" name="EntryMode"/>
+        <property expression="get-property('OnlineStatus')" name="OnlineStatus"/>
+        <property expression="get-property('Purpose')" name="Purpose"/>
+        <property expression="get-property('TransactionReference')" name="TransactionReference"/>
+        <property expression="get-property('RemittBenefRelation')" name="RemittBenefRelation"/>
+        <property expression="get-property('SMSResponse')" name="SMSResponse"/>
+        <property expression="get-property('SessionID')" name="SessionID"/>
+        <property expression="get-property('SourceOfIncome')" name="SourceOfIncome"/>
+        <property expression="get-property('StatusCode')" name="StatusCode"/>
+        <property expression="get-property('TieUpCode')" name="TieUpCode"/>
+        <property expression="get-property('ReceiveAmount')" name="ReceiveAmount"/>
+        <property expression="get-property('isIBAN')" name="isIBAN"/>
+    </log>
+    <sequence key="CreateTransactionSequence"/>
+</sequence>

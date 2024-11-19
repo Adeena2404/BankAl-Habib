@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence name="R1GetPayoutTransactionDetailsSequence" trace="disable" xmlns="http://ws.apache.org/ns/synapse">
+    <log level="full"/>
+    <property expression="//trans_ref" name="TransactionReference" scope="default" type="STRING"/>
+    <log>
+        <property expression="get-property('TransactionReference')" name="TransactionReferenceLog"/>
+    </log>
+    <payloadFactory media-type="xml">
+        <format>
+            <params xmlns="">
+                <username>$1</username>
+                <password>$2</password>
+                <pin>$3</pin>
+                <bank_name>$4</bank_name>
+                <trans_ref>$5</trans_ref>
+            </params>
+        </format>
+        <args>
+            <arg evaluator="xml" expression="get-property('R1_username')"/>
+            <arg evaluator="xml" expression="get-property('R1_password')"/>
+            <arg evaluator="xml" expression="get-property('R1_pin')"/>
+            <arg evaluator="xml" expression="get-property('BankName')"/>
+            <arg evaluator="xml" expression="get-property('TransactionReference')"/>
+        </args>
+    </payloadFactory>
+    <property name="messageType" scope="axis2" type="STRING" value="application/x-www-form-urlencoded"/>
+    <send receive="R1TransDetailsMapping">
+        <endpoint key="R1GetPayoutTransactionDetailsEndpoint"/>
+    </send>
+</sequence>

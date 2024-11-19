@@ -1,0 +1,19 @@
+<data name="GetBankNameDS" serviceNamespace="" serviceGroup="" transports="http https">
+  <description />
+  <query id="GetBankNameQuery" useConfig="GetBankNameDS">
+    <sql>select bank_name from BankList;</sql>
+    <result rowName="Bank" element="Banks">
+      <element name="bank_name" requiredRoles="" xsdType="string" column="bank_name" />
+    </result>
+  </query>
+  <operation name="GetBankNameOperation">
+    <call-query href="GetBankNameQuery" />
+  </operation>
+  <resource path="/getBankName" method="POST">
+    <description />
+    <call-query href="GetBankNameQuery" />
+  </resource>
+  <config id="GetBankNameDS">
+    <property name="carbon_datasource_name">RemitOneDatasource</property>
+  </config>
+</data>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence name="R1ProcessPayoutTransactionSequence" trace="disable" xmlns="http://ws.apache.org/ns/synapse">
+    <switch source="get-property('AcceptTransaction')">
+        <case regex="0">
+            <dbreport>
+                <connection>
+                    <pool>
+                        <dsName>MysqlConJNDI1</dsName>
+                    </pool>
+                </connection>
+                <statement>
+                    <sql><![CDATA[Update RemitOneTransactions Set Status= ? where TransactionReference = ?]]></sql>
+                    <parameter type="VARCHAR" value="SENT_FOR_PAY"/>
+                    <parameter expression="get-property('TransactionReference')" type="VARCHAR"/>
+                </statement>
+                <statement>
+                    <sql><![CDATA[Insert into BankTransactions (TransactionRef, AcceptTransaction, BankTransactionRef, BankTransactionStatus) VALUES (?, ?, ?, ?)]]></sql>
+                    <parameter expression="get-property('TransactionReference')" type="VARCHAR"/>
+                    <parameter type="NUMERIC" value="1"/>
+                    <parameter expression="get-property('BankTransactionReference')" type="VARCHAR"/>
+                    <parameter expression="get-property('BankTransactionStatus')" type="VARCHAR"/>
+                </statement>
+            </dbreport>
+            <switch source="get-property('BankTransactionStatus')">
+                <case regex="^(?!.*Completed).*$">
+                    <respond/>
+                </case>
+                <default/>
+            </switch>
+        </case>
+        <default/>
+    </switch>
+    <switch source="get-property('BankTransactionStatus')">
+        <case regex="Completed">
+            <log level="custom">
+                <property expression="get-property('BankTransactionStatus')" name="BankTransactionStatus_LOG"/>
+                <property expression="get-property('AcceptTransaction')" name="AcceptTransaction_LOG"/>
+            </log>
+            <payloadFactory media-type="xml">
+                <format>
+                    <params xmlns="">
+                        <trans_ref>$1</trans_ref>
+                        <username>$2</username>
+                        <password>$3</password>
+                        <pin>$4</pin>
+                        <bank_name>$5</bank_name>
+                    </params>
+                </format>
+                <args>
+                    <arg evaluator="xml" expression="get-property('TransactionReference')"/>
+                    <arg evaluator="xml" expression="get-property('R1_username')"/>
+                    <arg evaluator="xml" expression="get-property('R1_password')"/>
+                    <arg evaluator="xml" expression="get-property('R1_pin')"/>
+                    <arg evaluator="xml" expression="get-property('BankName')"/>
+                </args>
+            </payloadFactory>
+            <property name="messageType" scope="axis2" type="STRING" value="application/x-www-form-urlencoded"/>
+            <send receive="R1ProcessPayoutLogSequence">
+                <endpoint key="ProcessPayoutTransactionEndpoint"/>
+            </send>
+        </case>
+        <case regex="^(?!.*Completed).*$">
+            <respond/>
+        </case>
+        <default/>
+    </switch>
+</sequence>

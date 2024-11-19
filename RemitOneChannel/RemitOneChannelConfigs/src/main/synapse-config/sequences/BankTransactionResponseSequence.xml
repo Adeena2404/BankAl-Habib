@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence name="BankTransactionResponseSequence" trace="disable" xmlns="http://ws.apache.org/ns/synapse">
+    <log level="custom">
+        <property name="CHECHK_PAYOUT_STATUS" value="PROCESS_TRANSACTION"/>
+    </log>
+    <property name="checkPayoutStatusResponse" scope="transport" type="STRING" value=""/>
+    <enrich>
+        <source clone="true" type="body"/>
+        <target property="checkPayoutStatusResponse" type="property"/>
+    </enrich>
+    <log level="custom">
+        <property expression="json-eval($.cashout_id)" name="CashOutIdLog"/>
+        <property expression="json-eval($.desc)" name="StatusDescriptionLog"/>
+        <property expression="json-eval($.status)" name="StatusCodeLog"/>
+    </log>
+    <property expression="json-eval($.cashout_id)" name="CashOutId" scope="default" type="STRING"/>
+    <property expression="json-eval($.desc)" name="StatusDescription" scope="default" type="STRING"/>
+    <property expression="json-eval($.status)" name="StatusCode" scope="default" type="STRING"/>
+    <switch source="get-property('StatusCode')">
+        <case regex="0">
+            <dbreport>
+                <connection>
+                    <pool>
+                        <dsName>MysqlConJNDI1</dsName>
+                    </pool>
+                </connection>
+                <statement>
+                    <sql><![CDATA[
+        INSERT INTO BankTransactions (TransactionRef, AcceptTransaction, BankTransactionRef, BankTransactionStatus)
+        VALUES (?, ?, ?, ?)
+    ]]></sql>
+                    <parameter expression="get-property('TransactionReference')" type="VARCHAR"/>
+                    <parameter type="VARCHAR" value="0"/>
+                    <parameter expression="get-property('CashOutId')" type="VARCHAR"/>
+                    <parameter type="VARCHAR" value="Pending"/>
+                </statement>
+                <statement>
+                    <sql><![CDATA[UPDATE RemitOneTransactions SET BankTransactionStatus = ? WHERE TransactionRef = ?]]></sql>
+                    <parameter type="VARCHAR" value="Success"/>
+                    <parameter expression="get-property('TransactionReference')" type="VARCHAR"/>
+                </statement>
+            </dbreport>
+            <respond/>
+        </case>
+        <case regex="300|301|302|303|507|508|509|510|512|513|514|515|703|704|800|801|802|803|804|805|806|807|808|809|810|811|812|813|814|815|816|817|818|819|832">
+            <payloadFactory media-type="xml">
+                <format>
+                    <params xmlns="">
+                        <trans_ref>$1</trans_ref>
+                        <username>$2</username>
+                        <password>$3</password>
+                        <pin>$4</pin>
+                        <error_reason>$5</error_reason>
+                        <bank_name>$6</bank_name>
+                    </params>
+                </format>
+                <args>
+                    <arg evaluator="xml" expression="get-property('TransactionReference')"/>
+                    <arg evaluator="xml" expression="get-property('R1_username')"/>
+                    <arg evaluator="xml" expression="get-property('R1_password')"/>
+                    <arg evaluator="xml" expression="get-property('R1_pin')"/>
+                    <arg evaluator="xml" expression="get-property('StatusDescription')"/>
+                    <arg evaluator="xml" expression="get-property('BankName')"/>
+                </args>
+            </payloadFactory>
+            <property name="messageType" scope="axis2" type="STRING" value="application/x-www-form-urlencoded"/>
+            <call>
+                <endpoint key="R1HandleErrorEndpoint"/>
+            </call>
+            <respond/>
+        </case>
+        <default/>
+    </switch>
+</sequence>

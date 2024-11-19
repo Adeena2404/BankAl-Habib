@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence name="BusinessRuleSequence" trace="disable" xmlns="http://ws.apache.org/ns/synapse">
+    <log level="custom">
+        <property name="BusinessRuleLog" value="Inside Rule"/>
+    </log>
+    <propertyGroup>
+        <property expression="json-eval($.sender.full_name)" name="senderFullName" scope="default" type="STRING"/>
+        <property expression="json-eval($.sender.first_name)" name="senderFirstName" scope="default" type="STRING"/>
+        <property expression="json-eval($.sender.middle_name)" name="senderMiddleName" scope="default" type="STRING"/>
+        <property expression="json-eval($.sender.last_name)" name="senderLastName" scope="default" type="STRING"/>
+        <property expression="json-eval($.sender.id)" name="senderID" scope="default" type="STRING"/>
+        <property expression="json-eval($.sender.city)" name="senderCity" scope="default" type="STRING"/>
+        <property expression="json-eval($.sender.mobile)" name="senderMobile" scope="default" type="STRING"/>
+        <property expression="json-eval($.sender.country)" name="senderCountry" scope="default" type="STRING"/>
+        <property expression="json-eval($.sender.country_currency_code)" name="senderCurrencyCode" scope="default" type="STRING"/>
+        <property expression="json-eval($.sender.source_of_income)" name="senderSourceOfIncome" scope="default" type="STRING"/>
+        <property expression="json-eval($.sender.purpose)" name="senderPurpose" scope="default" type="STRING"/>
+        <property expression="json-eval($.sender.dob)" name="senderDOB" scope="default" type="STRING"/>
+        <property expression="json-eval($.sender.place_of_birth)" name="senderPlaceOfBirth" scope="default" type="STRING"/>
+        <property expression="json-eval($.sender.nationality)" name="senderNationality" scope="default" type="STRING"/>
+        <property expression="json-eval($.sender.address)" name="senderAddress" scope="default" type="STRING"/>
+        <property expression="json-eval($.sender.postcode)" name="senderPostcode" scope="default" type="STRING"/>
+        <property expression="json-eval($.sender.town)" name="senderTown" scope="default" type="STRING"/>
+        <property expression="json-eval($.sender.Document.id1type)" name="senderDocID1Type" scope="default" type="STRING"/>
+        <property expression="json-eval($.sender.Document.id1details)" name="senderDocID1Details" scope="default" type="STRING"/>
+        <property expression="json-eval($.sender.Document.id1issueplace)" name="senderDocID1IssuePlace" scope="default" type="STRING"/>
+        <property expression="json-eval($.sender.Document.id1start)" name="senderDocID1Start" scope="default" type="STRING"/>
+        <property expression="json-eval($.sender.Document.id1expiry)" name="senderDocID1Expiry" scope="default" type="STRING"/>
+        <property expression="json-eval($.receiver.id)" name="receiverID" scope="default" type="STRING"/>
+        <property expression="json-eval($.receiver.full_name)" name="receiverFullName" scope="default" type="STRING"/>
+        <property expression="json-eval($.receiver.first_name)" name="receiverFirstName" scope="default" type="STRING"/>
+        <property expression="json-eval($.receiver.middle_name)" name="receiverMiddleName" scope="default" type="STRING"/>
+        <property expression="json-eval($.receiver.local_name)" name="receiverLocalName" scope="default" type="STRING"/>
+        <property expression="json-eval($.receiver.last_name)" name="receiverLastName" scope="default" type="STRING"/>
+        <property expression="json-eval($.receiver.relation_code)" name="receiverRelationCode" scope="default" type="STRING"/>
+        <property expression="json-eval($.receiver.receive_country)" name="receiverCountry" scope="default" type="STRING"/>
+        <property expression="json-eval($.receiver.receive_country_currency_code)" name="receiverCurrencyCode" scope="default" type="STRING"/>
+        <property expression="json-eval($.receiver.account.IBAN)" name="receiverAccountIBAN" scope="default" type="STRING"/>
+        <property expression="json-eval($.receiver.account.account_number)" name="receiverAccountNumber" scope="default" type="STRING"/>
+        <property expression="json-eval($.receiver.mobile_number)" name="receiverMobileNumber" scope="default" type="STRING"/>
+        <property expression="json-eval($.receiver.email)" name="receiverEmail" scope="default" type="STRING"/>
+        <property expression="json-eval($.receiver.nationality)" name="receiverNationality" scope="default" type="STRING"/>
+        <property expression="json-eval($.receiver.dob)" name="receiverDOB" scope="default" type="STRING"/>
+        <property expression="json-eval($.receiver.national_id_number)" name="receiverNationalIDNumber" scope="default" type="STRING"/>
+        <property expression="json-eval($.receiver.org_type)" name="receiverOrgType" scope="default" type="STRING"/>
+        <property expression="json-eval($.receiver.Document.id_type)" name="receiverDocIDType" scope="default" type="STRING"/>
+        <property expression="json-eval($.receiver.Document.id_detail)" name="receiverDocIDDetail" scope="default" type="STRING"/>
+        <property expression="json-eval($.receiver.Document.id_issue_country)" name="receiverDocIDIssueCountry" scope="default" type="STRING"/>
+        <property expression="json-eval($.receiver.Document.id2_type)" name="receiverDocID2Type" scope="default" type="STRING"/>
+        <property expression="json-eval($.receiver.Document.id2_detail)" name="receiverDocID2Detail" scope="default" type="STRING"/>
+        <property expression="json-eval($.receiver.Document.id2_issue_country)" name="receiverDocID2IssueCountry" scope="default" type="STRING"/>
+        <property expression="json-eval($.receiver.branch_code)" name="receiverBranchCode" scope="default" type="STRING"/>
+        <property expression="json-eval($.receiver.branch_telephone)" name="receiverBranchTelephone" scope="default" type="STRING"/>
+        <property expression="json-eval($.receiver.place_of_birth)" name="receiverPlaceOfBirth" scope="default" type="STRING"/>
+        <property expression="json-eval($.receiver.address.address1)" name="receiverAddress1" scope="default" type="STRING"/>
+        <property expression="json-eval($.receiver.address.address2)" name="receiverAddress2" scope="default" type="STRING"/>
+        <property expression="json-eval($.receiver.postcode)" name="receiverPostcode" scope="default" type="STRING"/>
+        <property expression="json-eval($.receiver.town)" name="receiverTown" scope="default" type="STRING"/>
+        <property expression="json-eval($.receiver.bank.referenceID)" name="receiverBankReferenceID" scope="default" type="STRING"/>
+        <property expression="json-eval($.receiver.bank.name)" name="receiverBankName" scope="default" type="STRING"/>
+        <property expression="json-eval($.receiver.bank.account_type_code)" name="receiverBankAccountTypeCode" scope="default" type="STRING"/>
+        <property expression="json-eval($.receiver.bank.iso_code)" name="receiverBankISOCode" scope="default" type="STRING"/>
+        <property expression="json-eval($.receiver.bank.branch_third_party_id)" name="receiverBankBranchThirdPartyID" scope="default" type="STRING"/>
+        <property expression="json-eval($.receiver.bank.branch_name)" name="receiverBankBranchName" scope="default" type="STRING"/>
+        <property expression="json-eval($.receiver.bank.branch_code)" name="receiverBankBranchCode" scope="default" type="STRING"/>
+        <property expression="json-eval($.transaction.referenceID)" name="transactionReferenceID" scope="default" type="STRING"/>
+        <property expression="json-eval($.transaction.type)" name="transactionType" scope="default" type="STRING"/>
+        <property expression="json-eval($.transaction.payment_method)" name="transactionPaymentMethod" scope="default" type="STRING"/>
+        <property expression="json-eval($.transaction.status)" name="transactionStatus" scope="default" type="STRING"/>
+        <property expression="json-eval($.transaction.receive_amount)" name="transactionReceiveAmount" scope="default" type="STRING"/>
+        <property expression="json-eval($.transaction.send_amount)" name="transactionSendAmount" scope="default" type="STRING"/>
+        <property expression="json-eval($.transaction.rate)" name="transactionRate" scope="default" type="STRING"/>
+        <property expression="json-eval($.agent.referenceID)" name="agentReferenceID" scope="default" type="STRING"/>
+        <property expression="json-eval($.agent.customer)" name="agentCustomer" scope="default" type="STRING"/>
+        <property expression="json-eval($.agent.code)" name="agentCode" scope="default" type="STRING"/>
+        <property expression="json-eval($.agent.fullname)" name="agentFullname" scope="default" type="STRING"/>
+        <property expression="json-eval($.agent.teller_userid)" name="agentTellerUserID" scope="default" type="STRING"/>
+        <property expression="json-eval($.agent.teller_firstname)" name="agentTellerFirstName" scope="default" type="STRING"/>
+        <property expression="json-eval($.agent.teller_lastname)" name="agentTellerLastName" scope="default" type="STRING"/>
+        <property expression="json-eval($.agent.teller_location)" name="agentTellerLocation" scope="default" type="STRING"/>
+    </propertyGroup>
+    <property expression="json-eval($.sender.country)" name="SourceCountry" scope="default" type="STRING"/>
+    <property expression="json-eval($.receiver.receive_country)" name="DestinationCountry" scope="default" type="STRING"/>
+    <log level="custom">
+        <property expression="get-property('SourceCountry')" name="SourceCountryLog"/>
+        <property expression="get-property('DestinationCountry')" name="DestinationCountryLog"/>
+    </log>
+    <dblookup>
+        <connection>
+            <pool>
+                <dsName>USIJNDI</dsName>
+            </pool>
+        </connection>
+        <statement>
+            <sql><![CDATA[
+            select sr.service_provider_id, sp.endpoint 
+            from corridor_rules sr
+            join service_providers sp on sr.service_provider_id = sp.service_provider_id
+            where sr.source_country = ? AND sr.destination_country = ?;
+        ]]></sql>
+            <parameter expression="get-property('SourceCountry')" type="VARCHAR"/>
+            <parameter expression="get-property('DestinationCountry')" type="VARCHAR"/>
+            <result column="endpoint" name="ServiceProviderEndpoint"/>
+            <result column="service_provider_id" name="ServiceProviderID"/>
+        </statement>
+    </dblookup>
+    <property expression="get-property('ServiceProviderID')" name="ServiceProviderID" scope="default" type="STRING"/>
+    <property expression="get-property('ServiceProviderEndpoint')" name="ServiceProviderEndpoint" scope="default" type="STRING"/>
+    <log>
+        <property expression="get-property('ServiceProviderEndpoint')" name="ServiceProviderEndpointLog"/>
+    </log>
+    <payloadFactory media-type="json">
+        <format>{&#xd;
+    "sender": {&#xd;
+        "full_name": "$1",&#xd;
+        "first_name": "$2",&#xd;
+        "middle_name": "$3",&#xd;
+        "last_name": "$4",&#xd;
+        "id": "$5",&#xd;
+        "city": "$6",&#xd;
+        "mobile": "$7",&#xd;
+        "country": "$8",&#xd;
+        "country_currency_code": "$9",&#xd;
+        "source_of_income": "$10",&#xd;
+        "purpose": "$11",&#xd;
+        "dob": "$12",&#xd;
+        "place_of_birth": "$13",&#xd;
+        "nationality": "$14",&#xd;
+        "address": "$15",&#xd;
+        "postcode": "$16",&#xd;
+        "town": "$17",&#xd;
+        "Document": {&#xd;
+            "id1type": "$18",&#xd;
+            "id1details": "$19",&#xd;
+            "id1issueplace": "$20",&#xd;
+            "id1start": "$21",&#xd;
+            "id1expiry": "$22"&#xd;
+        }&#xd;
+    },&#xd;
+    "receiver": {&#xd;
+        "id": "$23",&#xd;
+        "full_name": "$24",&#xd;
+        "first_name": "$25",&#xd;
+        "middle_name": "$26",&#xd;
+        "local_name": "$27",&#xd;
+        "last_name": "$28",&#xd;
+        "relation_code": "$29",&#xd;
+        "receive_country": "$30",&#xd;
+        "receive_country_currency_code": "$31",&#xd;
+        "account": {&#xd;
+            "IBAN": "$32",&#xd;
+            "account_number": "$33"&#xd;
+        },&#xd;
+        "mobile_number": "$34",&#xd;
+        "email": "$35",&#xd;
+        "nationality": "$36",&#xd;
+        "dob": "$37",&#xd;
+        "national_id_number": "$38",&#xd;
+        "org_type": "$39",&#xd;
+        "Document": {&#xd;
+            "id_type": "$40",&#xd;
+            "id_detail": "$41",&#xd;
+            "id_issue_country": "$42",&#xd;
+            "id2_type": "$43",&#xd;
+            "id2_detail": "$44",&#xd;
+            "id2_issue_country": "$45"&#xd;
+        },&#xd;
+        "branch_code": "$46",&#xd;
+        "branch_telephone": "$47",&#xd;
+        "place_of_birth": "$48",&#xd;
+        "address": {&#xd;
+            "address1": "$49",&#xd;
+            "address2": "$50"&#xd;
+        },&#xd;
+        "postcode": "$51",&#xd;
+        "town": "$52",&#xd;
+        "bank": {&#xd;
+            "referenceID": "$53",&#xd;
+            "name": "$54",&#xd;
+            "account_type_code": "$55",&#xd;
+            "iso_code": "$56",&#xd;
+            "branch_third_party_id": "$57",&#xd;
+            "branch_name": "$58",&#xd;
+            "branch_code": "$59"&#xd;
+        }&#xd;
+    },&#xd;
+    "transaction": {&#xd;
+        "referenceID": "$60",&#xd;
+        "type": "$61",&#xd;
+        "payment_method": "$62",&#xd;
+        "status": "$63",&#xd;
+        "receive_amount": "$64",&#xd;
+        "send_amount": "$65",&#xd;
+        "rate": "$66"&#xd;
+    },&#xd;
+    "agent": {&#xd;
+        "referenceID": "$67",&#xd;
+        "customer": "$68",&#xd;
+        "code": "$69",&#xd;
+        "fullname": "$70",&#xd;
+        "teller_userid": "$71",&#xd;
+        "teller_firstname": "$72",&#xd;
+        "teller_lastname": "$73",&#xd;
+        "teller_location": "$74"&#xd;
+    }&#xd;
+}&#xd;
+</format>
+        <args>
+            <arg evaluator="xml" expression="get-property('senderFullName')"/>
+            <arg evaluator="xml" expression="get-property('senderFirstName')"/>
+            <arg evaluator="xml" expression="get-property('senderMiddleName')"/>
+            <arg evaluator="xml" expression="get-property('senderLastName')"/>
+            <arg evaluator="xml" expression="get-property('senderID')"/>
+            <arg evaluator="xml" expression="get-property('senderCity')"/>
+            <arg evaluator="xml" expression="get-property('senderMobile')"/>
+            <arg evaluator="xml" expression="get-property('senderCountry')"/>
+            <arg evaluator="xml" expression="get-property('senderCurrencyCode')"/>
+            <arg evaluator="xml" expression="get-property('senderSourceOfIncome')"/>
+            <arg evaluator="xml" expression="get-property('senderPurpose')"/>
+            <arg evaluator="xml" expression="get-property('senderDOB')"/>
+            <arg evaluator="xml" expression="get-property('senderPlaceOfBirth')"/>
+            <arg evaluator="xml" expression="get-property('senderNationality')"/>
+            <arg evaluator="xml" expression="get-property('senderAddress')"/>
+            <arg evaluator="xml" expression="get-property('senderPostcode')"/>
+            <arg evaluator="xml" expression="get-property('senderTown')"/>
+            <arg evaluator="xml" expression="get-property('senderDocID1Type')"/>
+            <arg evaluator="xml" expression="get-property('senderDocID1Details')"/>
+            <arg evaluator="xml" expression="get-property('senderDocID1IssuePlace')"/>
+            <arg evaluator="xml" expression="get-property('senderDocID1Start')"/>
+            <arg evaluator="xml" expression="get-property('senderDocID1Expiry')"/>
+            <arg evaluator="xml" expression="get-property('receiverID')"/>
+            <arg evaluator="xml" expression="get-property('receiverFullName')"/>
+            <arg evaluator="xml" expression="get-property('receiverFirstName')"/>
+            <arg evaluator="xml" expression="get-property('receiverMiddleName')"/>
+            <arg evaluator="xml" expression="get-property('receiverLocalName')"/>
+            <arg evaluator="xml" expression="get-property('receiverLastName')"/>
+            <arg evaluator="xml" expression="get-property('receiverRelationCode')"/>
+            <arg evaluator="xml" expression="get-property('receiverCountry')"/>
+            <arg evaluator="xml" expression="get-property('receiverCurrencyCode')"/>
+            <arg evaluator="xml" expression="get-property('receiverAccountIBAN')"/>
+            <arg evaluator="xml" expression="get-property('receiverAccountNumber')"/>
+            <arg evaluator="xml" expression="get-property('receiverMobileNumber')"/>
+            <arg evaluator="xml" expression="get-property('receiverEmail')"/>
+            <arg evaluator="xml" expression="get-property('receiverNationality')"/>
+            <arg evaluator="xml" expression="get-property('receiverDOB')"/>
+            <arg evaluator="xml" expression="get-property('receiverNationalIDNumber')"/>
+            <arg evaluator="xml" expression="get-property('receiverOrgType')"/>
+            <arg evaluator="xml" expression="get-property('receiverDocIDType')"/>
+            <arg evaluator="xml" expression="get-property('receiverDocIDDetail')"/>
+            <arg evaluator="xml" expression="get-property('receiverDocIDIssueCountry')"/>
+            <arg evaluator="xml" expression="get-property('receiverDocID2Type')"/>
+            <arg evaluator="xml" expression="get-property('receiverDocID2Detail')"/>
+            <arg evaluator="xml" expression="get-property('receiverDocID2IssueCountry')"/>
+            <arg evaluator="xml" expression="get-property('receiverBranchCode')"/>
+            <arg evaluator="xml" expression="get-property('receiverBranchTelephone')"/>
+            <arg evaluator="xml" expression="get-property('receiverPlaceOfBirth')"/>
+            <arg evaluator="xml" expression="get-property('receiverAddress1')"/>
+            <arg evaluator="xml" expression="get-property('receiverAddress2')"/>
+            <arg evaluator="xml" expression="get-property('receiverPostcode')"/>
+            <arg evaluator="xml" expression="get-property('receiverTown')"/>
+            <arg evaluator="xml" expression="get-property('receiverBankReferenceID')"/>
+            <arg evaluator="xml" expression="get-property('receiverBankName')"/>
+            <arg evaluator="xml" expression="get-property('receiverBankAccountTypeCode')"/>
+            <arg evaluator="xml" expression="get-property('receiverBankISOCode')"/>
+            <arg evaluator="xml" expression="get-property('receiverBankBranchThirdPartyID')"/>
+            <arg evaluator="xml" expression="get-property('receiverBankBranchName')"/>
+            <arg evaluator="xml" expression="get-property('receiverBankBranchCode')"/>
+            <arg evaluator="xml" expression="get-property('transactionReferenceID')"/>
+            <arg evaluator="xml" expression="get-property('transactionType')"/>
+            <arg evaluator="xml" expression="get-property('transactionPaymentMethod')"/>
+            <arg evaluator="xml" expression="get-property('transactionStatus')"/>
+            <arg evaluator="xml" expression="get-property('transactionReceiveAmount')"/>
+            <arg evaluator="xml" expression="get-property('transactionSendAmount')"/>
+            <arg evaluator="xml" expression="get-property('transactionRate')"/>
+            <arg evaluator="xml" expression="get-property('agentReferenceID')"/>
+            <arg evaluator="xml" expression="get-property('agentCustomer')"/>
+            <arg evaluator="xml" expression="get-property('agentCode')"/>
+            <arg evaluator="xml" expression="get-property('agentFullname')"/>
+            <arg evaluator="xml" expression="get-property('agentTellerUserID')"/>
+            <arg evaluator="xml" expression="get-property('agentTellerFirstName')"/>
+            <arg evaluator="xml" expression="get-property('agentTellerLastName')"/>
+            <arg evaluator="xml" expression="get-property('agentTellerLocation')"/>
+        </args>
+    </payloadFactory>
+    <property name="partner_endpoint" scope="default" type="STRING" value="http://localhost:8290/thunes/transactions"/>
+    <log level="custom">
+        <property expression="get-property('partner_endpoint')" name="Partner Endpoint"/>
+    </log>
+    <log level="full"/>
+    <call>
+        <endpoint>
+            <http method="post" uri-template="http://localhost:8290/Dlocal/CreateTransactionDlocal">
+                <suspendOnFailure>
+                    <initialDuration>-1</initialDuration>
+                    <progressionFactor>-1</progressionFactor>
+                    <maximumDuration>0</maximumDuration>
+                </suspendOnFailure>
+                <markForSuspension>
+                    <retriesBeforeSuspension>0</retriesBeforeSuspension>
+                </markForSuspension>
+            </http>
+        </endpoint>
+    </call>
+    <respond/>
+</sequence>

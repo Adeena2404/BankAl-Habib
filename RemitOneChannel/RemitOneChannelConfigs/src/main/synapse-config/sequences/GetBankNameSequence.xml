@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence name="GetBankNameSequence" trace="disable" xmlns="http://ws.apache.org/ns/synapse">
+    <send receive="BankNameIterationSequence">
+        <endpoint key="GetBankNameEndpoint"/>
+    </send>
+</sequence>

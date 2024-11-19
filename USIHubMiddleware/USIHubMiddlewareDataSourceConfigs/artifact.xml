@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?><artifacts>
+    <artifact name="datasource" groupId="com.evantagesoft.usihub.datasource" version="5.2.42" type="datasource/datasource" serverRole="DataServicesServer">
+        <file>datasource/datasource.xml</file>
+    </artifact>
+    <artifact name="USIHubDatasource" groupId="com.evantagesoft.usihub.datasource" version="5.2.42" type="datasource/datasource" serverRole="DataServicesServer">
+        <file>datasource/USIHubDatasource.xml</file>
+    </artifact>
+</artifacts>

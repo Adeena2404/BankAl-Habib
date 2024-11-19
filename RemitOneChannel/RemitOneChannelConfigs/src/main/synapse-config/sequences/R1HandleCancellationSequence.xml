@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence name="R1HandleCancellationSequence" trace="disable" xmlns="http://ws.apache.org/ns/synapse">
+    <property expression="get-property('StatusMessage')" name="StatusMessage" scope="default" type="STRING"/>
+    <payloadFactory media-type="xml">
+        <format>
+            <params xmlns="">
+                <trans_ref>$1</trans_ref>
+                <username>$2</username>
+                <password>$3</password>
+                <pin>$4</pin>
+                <reason>$5</reason>
+            </params>
+        </format>
+        <args>
+            <arg evaluator="xml" expression="get-property('TransactionReference')"/>
+            <arg evaluator="xml" expression="get-property('R1_username')"/>
+            <arg evaluator="xml" expression="get-property('R1_password')"/>
+            <arg evaluator="xml" expression="get-property('R1_pin')"/>
+            <arg evaluator="xml" expression="get-property('StatusMessage')"/>
+        </args>
+    </payloadFactory>
+    <property name="messageType" scope="axis2" type="STRING" value="application/x-www-form-urlencoded"/>
+    <call>
+        <endpoint key="R1RequestCancellationEndpoint"/>
+    </call>
+    <dbreport>
+        <connection>
+            <pool>
+                <dsName>MysqlConJNDI1</dsName>
+            </pool>
+        </connection>
+        <statement>
+            <sql><![CDATA[Update RemitOneTransactions Set Status= ?, BankTransactionCancelled = ? where TransactionReference = ?  ]]></sql>
+            <parameter type="VARCHAR" value="DELETED"/>
+            <parameter type="VARCHAR" value="1"/>
+            <parameter expression="get-property('TransactionReference')" type="VARCHAR"/>
+        </statement>
+    </dbreport>
+    <respond/>
+</sequence>

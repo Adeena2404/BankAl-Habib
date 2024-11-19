@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence name="R1GetPayoutTransactionsSequence" trace="disable" xmlns="http://ws.apache.org/ns/synapse">
+    <log level="custom">
+        <property expression="get-property('BankName')" name="BankNameLog"/>
+    </log>
+    <dblookup>
+        <connection>
+            <pool>
+                <dsName>MysqlConJNDI1</dsName>
+            </pool>
+        </connection>
+        <statement>
+            <sql><![CDATA[Select Value from Transaction_Credentials WHERE Application = "Remit1" and App_key = "username"]]></sql>
+            <result column="Value" name="R1_username"/>
+        </statement>
+        <statement>
+            <sql><![CDATA[Select Value from Transaction_Credentials WHERE Application = "Remit1" and App_key = "password"]]></sql>
+            <result column="Value" name="R1_password"/>
+        </statement>
+        <statement>
+            <sql><![CDATA[Select Value from Transaction_Credentials WHERE Application = "Remit1" and App_key = "pin"]]></sql>
+            <result column="Value" name="R1_pin"/>
+        </statement>
+    </dblookup>
+    <payloadFactory media-type="xml">
+        <format>
+            <params xmlns="">
+                <username>$1</username>
+                <password>$2</password>
+                <pin>$3</pin>
+                <bank_name>$4</bank_name>
+            </params>
+        </format>
+        <args>
+            <arg evaluator="xml" expression="get-property('R1_username')"/>
+            <arg evaluator="xml" expression="get-property('R1_password')"/>
+            <arg evaluator="xml" expression="get-property('R1_pin')"/>
+            <arg evaluator="xml" expression="get-property('BankName')"/>
+        </args>
+    </payloadFactory>
+    <property name="messageType" scope="axis2" type="STRING" value="application/x-www-form-urlencoded"/>
+    <send receive="R1TransactionIterationSequence">
+        <endpoint key="R1GetPayoutTransactionEndpoint"/>
+    </send>
+</sequence>

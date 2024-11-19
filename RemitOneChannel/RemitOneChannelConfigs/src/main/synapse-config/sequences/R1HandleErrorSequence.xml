@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence name="R1HandleErrorSequence" trace="disable" xmlns="http://ws.apache.org/ns/synapse">
+    <payloadFactory media-type="xml">
+        <format>
+            <params xmlns="">
+                <trans_ref>$1</trans_ref>
+                <username>$2</username>
+                <password>$3</password>
+                <pin>$4</pin>
+                <error_reason>$5</error_reason>
+                <bank_name>$6</bank_name>
+            </params>
+        </format>
+        <args>
+            <arg evaluator="xml" expression="get-property('TransactionReference')"/>
+            <arg evaluator="xml" expression="get-property('R1_username')"/>
+            <arg evaluator="xml" expression="get-property('R1_password')"/>
+            <arg evaluator="xml" expression="get-property('R1_pin')"/>
+            <arg evaluator="xml" expression="get-property('StatusMessage')"/>
+            <arg evaluator="xml" expression="get-property('BankName')"/>
+        </args>
+    </payloadFactory>
+    <property name="messageType" scope="axis2" type="STRING" value="application/x-www-form-urlencoded"/>
+    <call>
+        <endpoint key="R1HandleErrorEndpoint"/>
+    </call>
+    <dbreport>
+        <connection>
+            <pool>
+                <dsName>MysqlConJNDI1</dsName>
+            </pool>
+        </connection>
+        <statement>
+            <sql><![CDATA[Update RemitOneTransactions Set Status= ?, BankTransactionError = ? where TransactionReference = ?  ]]></sql>
+            <parameter type="VARCHAR" value="ERROR"/>
+            <parameter type="VARCHAR" value="1"/>
+            <parameter expression="get-property('TransactionReference')" type="VARCHAR"/>
+        </statement>
+    </dbreport>
+    <respond/>
+</sequence>

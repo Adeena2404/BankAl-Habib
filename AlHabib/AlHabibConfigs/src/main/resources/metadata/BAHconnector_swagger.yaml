@@ -1,0 +1,38 @@
+openapi: 3.0.1
+info:
+  title: BAHconnector
+  description: API Definition of BAHconnector
+  version: 1.0.0
+servers:
+- url: http://localhost:8290/BAH
+paths:
+  /CreateTransactionBAH:
+    post:
+      requestBody:
+        description: Sample Payload
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                payload:
+                  type: object
+        required: false
+      responses:
+        default:
+          description: Default response
+  /TransactionStatusBAH:
+    post:
+      requestBody:
+        description: Sample Payload
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                payload:
+                  type: object
+        required: false
+      responses:
+        default:
+          description: Default response

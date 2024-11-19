@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence name="R1ProcessPayoutLogSequence" trace="disable" xmlns="http://ws.apache.org/ns/synapse">
+    <dbreport>
+        <connection>
+            <pool>
+                <dsName>MysqlConJNDI1</dsName>
+            </pool>
+        </connection>
+        <statement>
+            <sql><![CDATA[Update RemitOneTransactions Set Status= ?  where TransactionReference = ?  ]]></sql>
+            <parameter type="VARCHAR" value="PROCESSED"/>
+            <parameter expression="get-property('TransactionReference')" type="VARCHAR"/>
+        </statement>
+    </dbreport>
+    <respond/>
+</sequence>

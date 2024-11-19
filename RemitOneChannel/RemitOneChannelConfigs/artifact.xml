@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?><artifacts>
+    <artifact name="GetBankNameSequence" groupId="com.evantagesoft.usihub.channel.remitone.sequence" version="1.0.0" type="synapse/sequence" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/sequences/GetBankNameSequence.xml</file>
+    </artifact>
+    <artifact name="BankNameIterationSequence" groupId="com.evantagesoft.usihub.channel.remitone.sequence" version="1.0.0" type="synapse/sequence" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/sequences/BankNameIterationSequence.xml</file>
+    </artifact>
+    <artifact name="GetTransactionDataSequence" groupId="com.evantagesoft.usihub.channel.remitone.sequence" version="1.0.0" type="synapse/sequence" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/sequences/GetTransactionDataSequence.xml</file>
+    </artifact>
+    <artifact name="R1AcceptPayoutTransactionSequence" groupId="com.evantagesoft.usihub.channel.remitone.sequence" version="1.0.0" type="synapse/sequence" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/sequences/R1AcceptPayoutTransactionSequence.xml</file>
+    </artifact>
+    <artifact name="R1GetPayoutTransactionDetailsSequence" groupId="com.evantagesoft.usihub.channel.remitone.sequence" version="1.0.0" type="synapse/sequence" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/sequences/R1GetPayoutTransactionDetailsSequence.xml</file>
+    </artifact>
+    <artifact name="R1GetPayoutTransactionsSequence" groupId="com.evantagesoft.usihub.channel.remitone.sequence" version="1.0.0" type="synapse/sequence" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/sequences/R1GetPayoutTransactionsSequence.xml</file>
+    </artifact>
+    <artifact name="R1HandleCancellationSequence" groupId="com.evantagesoft.usihub.channel.remitone.sequence" version="1.0.0" type="synapse/sequence" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/sequences/R1HandleCancellationSequence.xml</file>
+    </artifact>
+    <artifact name="R1HandleErrorSequence" groupId="com.evantagesoft.usihub.channel.remitone.sequence" version="1.0.0" type="synapse/sequence" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/sequences/R1HandleErrorSequence.xml</file>
+    </artifact>
+    <artifact name="R1ProcessPayoutLogSequence" groupId="com.evantagesoft.usihub.channel.remitone.sequence" version="1.0.0" type="synapse/sequence" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/sequences/R1ProcessPayoutLogSequence.xml</file>
+    </artifact>
+    <artifact name="R1ProcessPayoutTransactionSequence" groupId="com.evantagesoft.usihub.channel.remitone.sequence" version="1.0.0" type="synapse/sequence" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/sequences/R1ProcessPayoutTransactionSequence.xml</file>
+    </artifact>
+    <artifact name="R1TransDetailsMapping" groupId="com.evantagesoft.usihub.channel.remitone.sequence" version="1.0.0" type="synapse/sequence" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/sequences/R1TransDetailsMapping.xml</file>
+    </artifact>
+    <artifact name="TransactionDetailsIntoDatabase" groupId="com.evantagesoft.usihub.channel.remitone.sequence" version="1.0.0" type="synapse/sequence" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/sequences/TransactionDetailsIntoDatabase.xml</file>
+    </artifact>
+    <artifact name="BankNameStore" groupId="com.evantagesoft.usihub.channel.remitone.message-store" version="1.0.0" type="synapse/message-store" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/message-stores/BankNameStore.xml</file>
+    </artifact>
+    <artifact name="PayoutTransactionDetailsStore" groupId="com.evantagesoft.usihub.channel.remitone.message-store" version="1.0.0" type="synapse/message-store" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/message-stores/PayoutTransactionDetailsStore.xml</file>
+    </artifact>
+    <artifact name="PayoutTransactionStore" groupId="com.evantagesoft.usihub.channel.remitone.message-store" version="1.0.0" type="synapse/message-store" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/message-stores/PayoutTransactionStore.xml</file>
+    </artifact>
+    <artifact name="TransactionStatusStore" groupId="com.evantagesoft.usihub.channel.remitone.message-store" version="1.0.0" type="synapse/message-store" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/message-stores/TransactionStatusStore.xml</file>
+    </artifact>
+    <artifact name="GetBankNameEndpoint" groupId="com.evantagesoft.usihub.channel.remitone.endpoint" version="1.0.0" type="synapse/endpoint" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/endpoints/GetBankNameEndpoint.xml</file>
+    </artifact>
+    <artifact name="GetTransactionsFromDBEndpoint" groupId="com.evantagesoft.usihub.channel.remitone.endpoint" version="1.0.0" type="synapse/endpoint" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/endpoints/GetTransactionsFromDBEndpoint.xml</file>
+    </artifact>
+    <artifact name="R1AcceptPayoutTransactionsEndpoint" groupId="com.evantagesoft.usihub.channel.remitone.endpoint" version="1.0.0" type="synapse/endpoint" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/endpoints/R1AcceptPayoutTransactionsEndpoint.xml</file>
+    </artifact>
+    <artifact name="R1GetPayoutTransactionDetailsEndpoint" groupId="com.evantagesoft.usihub.channel.remitone.endpoint" version="1.0.0" type="synapse/endpoint" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/endpoints/R1GetPayoutTransactionDetailsEndpoint.xml</file>
+    </artifact>
+    <artifact name="R1GetPayoutTransactionEndpoint" groupId="com.evantagesoft.usihub.channel.remitone.endpoint" version="1.0.0" type="synapse/endpoint" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/endpoints/R1GetPayoutTransactionEndpoint.xml</file>
+    </artifact>
+    <artifact name="R1HandleErrorEndpoint" groupId="com.evantagesoft.usihub.channel.remitone.endpoint" version="1.0.0" type="synapse/endpoint" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/endpoints/R1HandleErrorEndpoint.xml</file>
+    </artifact>
+    <artifact name="R1RequestCancellationEndpoint" groupId="com.evantagesoft.usihub.channel.remitone.endpoint" version="1.0.0" type="synapse/endpoint" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/endpoints/R1RequestCancellationEndpoint.xml</file>
+    </artifact>
+    <artifact name="RemitOne" groupId="com.evantagesoft.usihub.channel.remitone.api" version="1.0.0" type="synapse/api" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/api/RemitOne.xml</file>
+    </artifact>
+    <artifact name="RemitOne_swagger" groupId="com.evantagesoft.usihub.channel.remitone.metadata" version="1.0.0" type="synapse/metadata" serverRole="EnterpriseServiceBus">
+        <file>src/main/resources/metadata/RemitOne_swagger.yaml</file>
+    </artifact>
+    <artifact name="RemitOne_metadata" groupId="com.evantagesoft.usihub.channel.remitone.metadata" version="1.0.0" type="synapse/metadata" serverRole="EnterpriseServiceBus">
+        <file>src/main/resources/metadata/RemitOne_metadata.yaml</file>
+    </artifact>
+    <artifact name="BankTransactionStatusSequence" groupId="com.evantagesoft.usihub.channel.remitone.sequence" version="1.0.0" type="synapse/sequence" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/sequences/BankTransactionStatusSequence.xml</file>
+    </artifact>
+    <artifact name="BankTransactionStatusIteratorSequence" groupId="com.evantagesoft.usihub.channel.remitone.sequence" version="1.0.0" type="synapse/sequence" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/sequences/BankTransactionStatusIteratorSequence.xml</file>
+    </artifact>
+    <artifact name="BankTransactionResponseSequence" groupId="com.evantagesoft.usihub.channel.remitone.sequence" version="1.0.0" type="synapse/sequence" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/sequences/BankTransactionResponseSequence.xml</file>
+    </artifact>
+    <artifact name="GetTransactionStatusEndpoint" groupId="com.evantagesoft.usihub.channel.remitone.endpoint" version="1.0.0" type="synapse/endpoint" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/endpoints/GetTransactionStatusEndpoint.xml</file>
+    </artifact>
+    <artifact name="R1TransactionIterationSequence" groupId="com.evantagesoft.usihub.channel.remitone.sequence" version="1.0.0" type="synapse/sequence" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/sequences/R1TransactionIterationSequence.xml</file>
+    </artifact>
+    <artifact name="USIHubEndpoint" groupId="com.evantagesoft.usihub.channel.remitone.endpoint" version="1.0.0" type="synapse/endpoint" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/endpoints/USIHubEndpoint.xml</file>
+    </artifact>
+    <artifact name="R1ProcessResponse" groupId="com.evantagesoft.usihub.channel.remitone.sequence" version="1.0.0" type="synapse/sequence" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/sequences/R1ProcessResponse.xml</file>
+    </artifact>
+</artifacts>

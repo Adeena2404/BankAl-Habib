@@ -1,0 +1,400 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence name="TransactionDetailsIntoDatabase" trace="disable" xmlns="http://ws.apache.org/ns/synapse">
+    <log/>
+    <dbreport>
+        <connection>
+            <pool>
+                <dsName>MysqlConJNDI1</dsName>
+            </pool>
+        </connection>
+        <statement>
+            <sql><![CDATA[
+       INSERT INTO RemitOneTransactions (
+    TransactionReference, AgentTransRef, BenefTransRef, Status, CreationDate, Purpose, SourceOfIncome, AgentCode, 
+    AgentFullName, AgentTellerUserId, AgentTellerFname, AgentTellerLname, AgentTellerLocation, BankName, 
+    BankAcceptDate, BankBranchName, BankBranchCode, BankBranchAcceptDate, DeliveryDate, ProcessedDate, 
+    ProcessedBy, TransactionType, BenefId, BenefName, BenefFirstname, BenefMiddlename, BenefLastname, 
+    BenefLocalname, RemittBenefRelation, BenefTelephone, BenefMobile, BenefEmail, BenefNationality, BenefDOB, 
+    BenefNationalIdNumber, BenefOrgtype, CollectionPoint, CollectionPointBank, CollectionPointCode, CollectionPin, 
+    BenefIdType, BenefIdDetail, BenefIdIssueCountry, BenefId2Type, BenefId2Detail, BenefId2IssuePlace, 
+    BenefAc, BenefAcType, BenefBankSwiftCode, BenefBankIBAN, BenefBankBSBCode, BenefBankRoutingTransitNumber, 
+    BenefBankIfscCode, BenefBank, BenefBankCity, BenefBankState, BenefBankAccountName, BenefBranch, 
+    BenefBranchCode, BenefBranchTelephone, BenefBranchManager, AdditionalBenefBank, AdditionalBenefBankBranch, 
+    BenefBankThirdPartyId, BenefBankThirdPartyName, BenefBankThirdPartyCode, BenefBranchThirdPartyId, 
+    BenefBranchThirdPartyName, BenefBranchThirdPartyCode, BenefBranchIfscCode, BenefBranchAddress, BenefCardType, 
+    BenefCardNumber, BenefAddress, BenefAddress2, BenefAddress3, BenefCity, BenefState, BenefPostcode, 
+    BenefMobileTransferNumber, BenefMobileTransferNetwork, BenefMobileTransferNetworkCreditType, 
+    BenefMobileTransferNetworkCreditTypeCode, DeliveryNotes, UtilityCompany, UtilityCompanyCode, 
+    UtilityCompanyAddress1, UtilityCompanyAddress2, UtilityCompanyAddress3, UtilityCompanyCity, UtilityCompanyState, 
+    UtilityCompanyPostcode, UtilityAccountNumber, UtilityInvoice, UtilityBank, UtilityBankCode, UtilityBankBIC, 
+    UtilityDescription, RemitterId, RemitterFullName, RemitterFirstName, RemitterMiddleName, RemitterLastName, 
+    RemitterLocalName, RemitterAddress, RemitterAddressParts, RemitterBuildingNo, RemitterAddress1, RemitterAddress2, 
+    RemitterCity, RemitterState, RemitterPostCode, RemitterCountry, RemitterType, RemitterOrgType, RemitterCompanyName, 
+    RemitterCompanyType, RemitterCompanyRegNo, RemitterAnnualIncome, RemitterAnnualRemittance, RemitterId1Type, 
+    RemitterId1Details, RemitterId1IssuePlace, RemitterId1Start, RemitterId1Expiry, RemitterNationality, RemitterDOB, 
+    RemitterPlaceOfBirth, RemitterTelephone, RemitterMobileNumber, RemitterGender, RemitterOccupation, SendCountry, 
+    SendCountryISO, SendCountryName, SendCountryCurrencyCode, SendAmount, Rate, Comission, ComissionFixed, 
+    ComissionPercentage, Fees, Paid, ReceiveCountry, ReceiveCountryISO, ReceiveCurrency, ReceiveAmount, 
+    ReceiveAmountCreditlogCCY, BankChargesCreditlogCCY, BankChargesSlabsCCY, ReceiveAmountAfterBankCharges, 
+    BankSequence, PaymentMethod, IssueDate, BankRef, BankComments, BankCreditDate, BankClearDate, BankChargesDest, 
+    DeletedDate, DeletedReason, AdminComments, AgentComments, PayoutComments, ReceiptType, ReceiptBase
+) VALUES (
+    ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 
+    ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
+    ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
+    ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
+    ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
+    ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
+    ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
+    ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
+    ?, ?, ?, ?, ?, ?
+    );
+    ]]></sql>
+            <parameter expression="get-property('TransactionReference')" type="VARCHAR"/>
+            <parameter expression="get-property('AgentTransRef')" type="VARCHAR"/>
+            <parameter expression="get-property('BenefTransRef')" type="VARCHAR"/>
+            <parameter expression="get-property('Status')" type="VARCHAR"/>
+            <parameter expression="get-property('CreationDate')" type="VARCHAR"/>
+            <parameter expression="get-property('Purpose')" type="VARCHAR"/>
+            <parameter expression="get-property('SourceOfIncome')" type="VARCHAR"/>
+            <parameter expression="get-property('AgentCode')" type="VARCHAR"/>
+            <parameter expression="get-property('AgentFullName')" type="VARCHAR"/>
+            <parameter expression="get-property('AgentTellerUserId')" type="VARCHAR"/>
+            <parameter expression="get-property('AgentTellerFname')" type="VARCHAR"/>
+            <parameter expression="get-property('AgentTellerLname')" type="VARCHAR"/>
+            <parameter expression="get-property('AgentTellerLocation')" type="VARCHAR"/>
+            <parameter expression="get-property('BankName')" type="VARCHAR"/>
+            <parameter expression="get-property('BankAcceptDate')" type="VARCHAR"/>
+            <parameter expression="get-property('BankBranchName')" type="VARCHAR"/>
+            <parameter expression="get-property('BankBranchCode')" type="VARCHAR"/>
+            <parameter expression="get-property('BankBranchAcceptDate')" type="VARCHAR"/>
+            <parameter expression="get-property('DeliveryDate')" type="VARCHAR"/>
+            <parameter expression="get-property('ProcessedDate')" type="VARCHAR"/>
+            <parameter expression="get-property('ProcessedBy')" type="VARCHAR"/>
+            <parameter expression="get-property('TransactionType')" type="VARCHAR"/>
+            <parameter expression="get-property('BenefId')" type="VARCHAR"/>
+            <parameter expression="get-property('BenefName')" type="VARCHAR"/>
+            <parameter expression="get-property('BenefFirstname')" type="VARCHAR"/>
+            <parameter expression="get-property('BenefMiddlename')" type="VARCHAR"/>
+            <parameter expression="get-property('BenefLastname')" type="VARCHAR"/>
+            <parameter expression="get-property('BenefLocalname')" type="VARCHAR"/>
+            <parameter expression="get-property('RemittBenefRelation')" type="VARCHAR"/>
+            <parameter expression="get-property('BenefTelephone')" type="VARCHAR"/>
+            <parameter expression="get-property('BenefMobile')" type="VARCHAR"/>
+            <parameter expression="get-property('BenefEmail')" type="VARCHAR"/>
+            <parameter expression="get-property('BenefNationality')" type="VARCHAR"/>
+            <parameter expression="get-property('BenefDOB')" type="VARCHAR"/>
+            <parameter expression="get-property('BenefNationalIdNumber')" type="VARCHAR"/>
+            <parameter expression="get-property('BenefOrgtype')" type="VARCHAR"/>
+            <parameter expression="get-property('CollectionPoint')" type="VARCHAR"/>
+            <parameter expression="get-property('CollectionPointBank')" type="VARCHAR"/>
+            <parameter expression="get-property('CollectionPointCode')" type="VARCHAR"/>
+            <parameter expression="get-property('CollectionPin')" type="VARCHAR"/>
+            <parameter expression="get-property('BenefIdType')" type="VARCHAR"/>
+            <parameter expression="get-property('BenefIdDetail')" type="VARCHAR"/>
+            <parameter expression="get-property('BenefIdIssueCountry')" type="VARCHAR"/>
+            <parameter expression="get-property('BenefId2Type')" type="VARCHAR"/>
+            <parameter expression="get-property('BenefId2Detail')" type="VARCHAR"/>
+            <parameter expression="get-property('BenefId2IssuePlace')" type="VARCHAR"/>
+            <parameter expression="get-property('BenefAc')" type="VARCHAR"/>
+            <parameter expression="get-property('BenefAcType')" type="VARCHAR"/>
+            <parameter expression="get-property('BenefBankSwiftCode')" type="VARCHAR"/>
+            <parameter expression="get-property('BenefBankIBAN')" type="VARCHAR"/>
+            <parameter expression="get-property('BenefBankBSBCode')" type="VARCHAR"/>
+            <parameter expression="get-property('BenefBankRoutingTransitNumber')" type="VARCHAR"/>
+            <parameter expression="get-property('BenefBankIfscCode')" type="VARCHAR"/>
+            <parameter expression="get-property('BenefBank')" type="VARCHAR"/>
+            <parameter expression="get-property('BenefBankCity')" type="VARCHAR"/>
+            <parameter expression="get-property('BenefBankState')" type="VARCHAR"/>
+            <parameter expression="get-property('BenefBankAccountName')" type="VARCHAR"/>
+            <parameter expression="get-property('BenefBranch')" type="VARCHAR"/>
+            <parameter expression="get-property('BenefBranchCode')" type="VARCHAR"/>
+            <parameter expression="get-property('BenefBranchTelephone')" type="VARCHAR"/>
+            <parameter expression="get-property('BenefBranchManager')" type="VARCHAR"/>
+            <parameter expression="get-property('AdditionalBenefBank')" type="VARCHAR"/>
+            <parameter expression="get-property('AdditionalBenefBankBranch')" type="VARCHAR"/>
+            <parameter expression="get-property('BenefBankThirdPartyId')" type="VARCHAR"/>
+            <parameter expression="get-property('BenefBankThirdPartyName')" type="VARCHAR"/>
+            <parameter expression="get-property('BenefBankThirdPartyCode')" type="VARCHAR"/>
+            <parameter expression="get-property('BenefBranchThirdPartyId')" type="VARCHAR"/>
+            <parameter expression="get-property('BenefBranchThirdPartyName')" type="VARCHAR"/>
+            <parameter expression="get-property('BenefBranchThirdPartyCode')" type="VARCHAR"/>
+            <parameter expression="get-property('BenefBranchIfscCode')" type="VARCHAR"/>
+            <parameter expression="get-property('BenefBranchAddress')" type="VARCHAR"/>
+            <parameter expression="get-property('BenefCardType')" type="VARCHAR"/>
+            <parameter expression="get-property('BenefCardNumber')" type="VARCHAR"/>
+            <parameter expression="get-property('BenefAddress')" type="VARCHAR"/>
+            <parameter expression="get-property('BenefAddress2')" type="VARCHAR"/>
+            <parameter expression="get-property('BenefAddress3')" type="VARCHAR"/>
+            <parameter expression="get-property('BenefCity')" type="VARCHAR"/>
+            <parameter expression="get-property('BenefState')" type="VARCHAR"/>
+            <parameter expression="get-property('BenefPostcode')" type="VARCHAR"/>
+            <parameter expression="get-property('BenefMobileTransferNumber')" type="VARCHAR"/>
+            <parameter expression="get-property('BenefMobileTransferNetwork')" type="VARCHAR"/>
+            <parameter expression="get-property('BenefMobileTransferNetworkCreditType')" type="VARCHAR"/>
+            <parameter expression="get-property('BenefMobileTransferNetworkCreditTypeCode')" type="VARCHAR"/>
+            <parameter expression="get-property('DeliveryNotes')" type="VARCHAR"/>
+            <parameter expression="get-property('UtilityCompany')" type="VARCHAR"/>
+            <parameter expression="get-property('UtilityCompanyCode')" type="VARCHAR"/>
+            <parameter expression="get-property('UtilityCompanyAddress1')" type="VARCHAR"/>
+            <parameter expression="get-property('UtilityCompanyAddress2')" type="VARCHAR"/>
+            <parameter expression="get-property('UtilityCompanyAddress3')" type="VARCHAR"/>
+            <parameter expression="get-property('UtilityCompanyCity')" type="VARCHAR"/>
+            <parameter expression="get-property('UtilityCompanyState')" type="VARCHAR"/>
+            <parameter expression="get-property('UtilityCompanyPostcode')" type="VARCHAR"/>
+            <parameter expression="get-property('UtilityAccountNumber')" type="VARCHAR"/>
+            <parameter expression="get-property('UtilityInvoice')" type="VARCHAR"/>
+            <parameter expression="get-property('UtilityBank')" type="VARCHAR"/>
+            <parameter expression="get-property('UtilityBankCode')" type="VARCHAR"/>
+            <parameter expression="get-property('UtilityBankBIC')" type="VARCHAR"/>
+            <parameter expression="get-property('UtilityDescription')" type="VARCHAR"/>
+            <parameter expression="get-property('RemitterId')" type="VARCHAR"/>
+            <parameter expression="get-property('RemitterFullName')" type="VARCHAR"/>
+            <parameter expression="get-property('RemitterFirstName')" type="VARCHAR"/>
+            <parameter expression="get-property('RemitterMiddleName')" type="VARCHAR"/>
+            <parameter expression="get-property('RemitterLastName')" type="VARCHAR"/>
+            <parameter expression="get-property('RemitterLocalName')" type="VARCHAR"/>
+            <parameter expression="get-property('RemitterAddress')" type="VARCHAR"/>
+            <parameter expression="get-property('RemitterAddressParts')" type="VARCHAR"/>
+            <parameter expression="get-property('RemitterBuildingNo')" type="VARCHAR"/>
+            <parameter expression="get-property('RemitterAddress1')" type="VARCHAR"/>
+            <parameter expression="get-property('RemitterAddress2')" type="VARCHAR"/>
+            <parameter expression="get-property('RemitterCity')" type="VARCHAR"/>
+            <parameter expression="get-property('RemitterState')" type="VARCHAR"/>
+            <parameter expression="get-property('RemitterPostCode')" type="VARCHAR"/>
+            <parameter expression="get-property('RemitterCountry')" type="VARCHAR"/>
+            <parameter expression="get-property('RemitterType')" type="VARCHAR"/>
+            <parameter expression="get-property('RemitterOrgType')" type="VARCHAR"/>
+            <parameter expression="get-property('RemitterCompanyName')" type="VARCHAR"/>
+            <parameter expression="get-property('RemitterCompanyType')" type="VARCHAR"/>
+            <parameter expression="get-property('RemitterCompanyRegNo')" type="VARCHAR"/>
+            <parameter expression="get-property('RemitterAnnualIncome')" type="VARCHAR"/>
+            <parameter expression="get-property('RemitterAnnualRemittance')" type="VARCHAR"/>
+            <parameter expression="get-property('RemitterId1Type')" type="VARCHAR"/>
+            <parameter expression="get-property('RemitterId1Details')" type="VARCHAR"/>
+            <parameter expression="get-property('RemitterId1IssuePlace')" type="VARCHAR"/>
+            <parameter expression="get-property('RemitterId1Start')" type="VARCHAR"/>
+            <parameter expression="get-property('RemitterId1Expiry')" type="VARCHAR"/>
+            <parameter expression="get-property('RemitterNationality')" type="VARCHAR"/>
+            <parameter expression="get-property('RemitterDOB')" type="VARCHAR"/>
+            <parameter expression="get-property('RemitterPlaceOfBirth')" type="VARCHAR"/>
+            <parameter expression="get-property('RemitterTelephone')" type="VARCHAR"/>
+            <parameter expression="get-property('RemitterMobileNumber')" type="VARCHAR"/>
+            <parameter expression="get-property('RemitterGender')" type="VARCHAR"/>
+            <parameter expression="get-property('RemitterOccupation')" type="VARCHAR"/>
+            <parameter expression="get-property('SendCountry')" type="VARCHAR"/>
+            <parameter expression="get-property('SendCountryISO')" type="VARCHAR"/>
+            <parameter expression="get-property('SendCountryName')" type="VARCHAR"/>
+            <parameter expression="get-property('SendCountryCurrencyCode')" type="VARCHAR"/>
+            <parameter expression="get-property('SendAmount')" type="VARCHAR"/>
+            <parameter expression="get-property('Rate')" type="VARCHAR"/>
+            <parameter expression="get-property('Comission')" type="VARCHAR"/>
+            <parameter expression="get-property('ComissionFixed')" type="VARCHAR"/>
+            <parameter expression="get-property('ComissionPercentage')" type="VARCHAR"/>
+            <parameter expression="get-property('Fees')" type="VARCHAR"/>
+            <parameter expression="get-property('Paid')" type="VARCHAR"/>
+            <parameter expression="get-property('ReceiveCountryISO')" type="VARCHAR"/>
+            <parameter expression="get-property('ReceiveCountry')" type="VARCHAR"/>
+            <parameter expression="get-property('ReceiveCurrency')" type="VARCHAR"/>
+            <parameter expression="get-property('ReceiveAmount')" type="VARCHAR"/>
+            <parameter expression="get-property('ReceiveAmountCreditlogCCY')" type="VARCHAR"/>
+            <parameter expression="get-property('BankChargesCreditlogCCY')" type="VARCHAR"/>
+            <parameter expression="get-property('BankChargesSlabsCCY')" type="VARCHAR"/>
+            <parameter expression="get-property('ReceiveAmountAfterBankCharges')" type="VARCHAR"/>
+            <parameter expression="get-property('BankSequence')" type="VARCHAR"/>
+            <parameter expression="get-property('PaymentMethod')" type="VARCHAR"/>
+            <parameter expression="get-property('IssueDate')" type="VARCHAR"/>
+            <parameter expression="get-property('BankRef')" type="VARCHAR"/>
+            <parameter expression="get-property('BankComments')" type="VARCHAR"/>
+            <parameter expression="get-property('BankCreditDate')" type="VARCHAR"/>
+            <parameter expression="get-property('BankClearDate')" type="VARCHAR"/>
+            <parameter expression="get-property('BankChargesDest')" type="VARCHAR"/>
+            <parameter expression="get-property('DeletedDate')" type="VARCHAR"/>
+            <parameter expression="get-property('DeletedReason')" type="VARCHAR"/>
+            <parameter expression="get-property('AdminComments')" type="VARCHAR"/>
+            <parameter expression="get-property('AgentComments')" type="VARCHAR"/>
+            <parameter expression="get-property('PayoutComments')" type="VARCHAR"/>
+            <parameter expression="get-property('ReceiptType')" type="VARCHAR"/>
+            <parameter expression="get-property('ReceiptBase')" type="VARCHAR"/>
+        </statement>
+    </dbreport>
+    <log/>
+    <payloadFactory media-type="json">
+        <format>{&#xd;
+    "sender": {&#xd;
+        "full_name": "$1",&#xd;
+        "first_name": "$2",&#xd;
+        "middle_name": "$3",&#xd;
+        "last_name": "$4",&#xd;
+        "id": "$5",&#xd;
+        "city": "$6",&#xd;
+        "mobile": "$7",&#xd;
+        "country": "$8",&#xd;
+        "country_currency_code": "$9",&#xd;
+        "source_of_income": "$10",&#xd;
+        "purpose": "$11",&#xd;
+        "dob": "$12",&#xd;
+        "place_of_birth": "$13",&#xd;
+        "nationality": "$14",&#xd;
+        "address": "$15",&#xd;
+        "postcode": "$16",&#xd;
+        "town": "$17",&#xd;
+        "Document": {&#xd;
+            "id1type": "$18",&#xd;
+            "id1details": "$19",&#xd;
+            "id1issueplace": "$20",&#xd;
+            "id1start": "$21",&#xd;
+            "id1expiry": "$22"&#xd;
+        }&#xd;
+    },&#xd;
+    "receiver": {&#xd;
+        "id": "$23",&#xd;
+        "full_name": "$24",&#xd;
+        "first_name": "$25",&#xd;
+        "middle_name": "$26",&#xd;
+        "local_name": "$27",&#xd;
+        "last_name": "$28",&#xd;
+        "relation_code": "$29",&#xd;
+        "receive_country": "$30",&#xd;
+        "receive_country_currency_code": "$31",&#xd;
+        "account": {&#xd;
+            "IBAN": "$32",&#xd;
+            "account_number": "$33"&#xd;
+        },&#xd;
+        "mobile_number": "$34",&#xd;
+        "email": "$35",&#xd;
+        "nationality": "$36",&#xd;
+        "dob": "$37",&#xd;
+        "national_id_number": "$38",&#xd;
+        "org_type": "$39",&#xd;
+        "Document": {&#xd;
+            "id_type": "$40",&#xd;
+            "id_detail": "$41",&#xd;
+            "id_issue_country": "$42",&#xd;
+            "id2_type": "$43",&#xd;
+            "id2_detail": "$44",&#xd;
+            "id2_issue_country": "$45"&#xd;
+        },&#xd;
+        "branch_code": "$46",&#xd;
+        "branch_telephone": "$47",&#xd;
+        "place_of_birth": "$48",&#xd;
+        "address": {&#xd;
+            "address1": "$49",&#xd;
+            "address2": "$50"&#xd;
+        },&#xd;
+        "postcode": "$51",&#xd;
+        "town": "$52",&#xd;
+        "bank": {&#xd;
+            "referenceID": "$53",&#xd;
+            "name": "$54",&#xd;
+            "account_type_code": "$55",&#xd;
+            "iso_code": "$56",&#xd;
+            "branch_third_party_id": "$57",&#xd;
+            "branch_name": "$58",&#xd;
+            "branch_code": "$59"&#xd;
+        }&#xd;
+    },&#xd;
+    "transaction": {&#xd;
+        "referenceID": "$60",&#xd;
+        "type": "$61",&#xd;
+        "payment_method": "$62",&#xd;
+        "status": "$63",&#xd;
+        "receive_amount": "$64",&#xd;
+        "send_amount": "$65",&#xd;
+        "rate": "$66"&#xd;
+    },&#xd;
+    "agent": {&#xd;
+        "referenceID": "$67",&#xd;
+        "customer": "$68",&#xd;
+        "code": "$69",&#xd;
+        "fullname": "$70",&#xd;
+        "teller_userid": "$71",&#xd;
+        "teller_firstname": "$72",&#xd;
+        "teller_lastname": "$73",&#xd;
+        "teller_location": "$74"&#xd;
+    }&#xd;
+}&#xd;
+</format>
+        <args>
+            <arg evaluator="xml" expression="get-property('RemitterFullName')"/>
+            <arg evaluator="xml" expression="get-property('RemitterFirstName')"/>
+            <arg evaluator="xml" expression="get-property('RemitterMiddleName')"/>
+            <arg evaluator="xml" expression="get-property('RemitterLastName')"/>
+            <arg evaluator="xml" expression="get-property('RemitterId')"/>
+            <arg evaluator="xml" expression="get-property('RemitterCity')"/>
+            <arg evaluator="xml" expression="get-property('RemitterMobileNumber')"/>
+            <arg evaluator="xml" expression="get-property('SendCountry')"/>
+            <arg evaluator="xml" expression="get-property('SendCountryCurrencyCode')"/>
+            <arg evaluator="xml" expression="get-property('SourceOfIncome')"/>
+            <arg evaluator="xml" expression="get-property('Purpose')"/>
+            <arg evaluator="xml" expression="get-property('RemitterDOB')"/>
+            <arg evaluator="xml" expression="get-property('RemitterPlaceOfBirth')"/>
+            <arg evaluator="xml" expression="get-property('RemitterNationality')"/>
+            <arg evaluator="xml" expression="get-property('RemitterAddress1')"/>
+            <arg evaluator="xml" expression="get-property('RemitterPostCode')"/>
+            <arg evaluator="xml" expression="get-property('RemitterCity')"/>
+            <arg evaluator="xml" expression="get-property('RemitterId1Type')"/>
+            <arg evaluator="xml" expression="get-property('RemitterId1Details')"/>
+            <arg evaluator="xml" expression="get-property('RemitterId1IssuePlace')"/>
+            <arg evaluator="xml" expression="get-property('RemitterId1Start')"/>
+            <arg evaluator="xml" expression="get-property('RemitterId1Expiry')"/>
+            <arg evaluator="xml" expression="get-property('BenefId')"/>
+            <arg evaluator="xml" expression="get-property('BenefName')"/>
+            <arg evaluator="xml" expression="get-property('BenefFirstname')"/>
+            <arg evaluator="xml" expression="get-property('BenefMiddlename')"/>
+            <arg evaluator="xml" expression="get-property('BenefLocalname')"/>
+            <arg evaluator="xml" expression="get-property('BenefLastname')"/>
+            <arg evaluator="xml" expression="get-property('RemittBenefRelation')"/>
+            <arg evaluator="xml" expression="get-property('ReceiveCountry')"/>
+            <arg evaluator="xml" expression="get-property('ReceiveCurrency')"/>
+            <arg evaluator="xml" expression="get-property('BenefBankIBAN')"/>
+            <arg evaluator="xml" expression="get-property('BenefAc')"/>
+            <arg evaluator="xml" expression="get-property('BenefMobile')"/>
+            <arg evaluator="xml" expression="get-property('BenefEmail')"/>
+            <arg evaluator="xml" expression="get-property('BenefNationality')"/>
+            <arg evaluator="xml" expression="get-property('BenefDOB')"/>
+            <arg evaluator="xml" expression="get-property('BenefNationalIdNumber')"/>
+            <arg evaluator="xml" expression="get-property('BenefOrgType')"/>
+            <arg evaluator="xml" expression="get-property('BenefIdType')"/>
+            <arg evaluator="xml" expression="get-property('BenefIdDetail')"/>
+            <arg evaluator="xml" expression="get-property('BenefIdIssueCountry')"/>
+            <arg evaluator="xml" expression="get-property('BenefId2Type')"/>
+            <arg evaluator="xml" expression="get-property('BenefId2Detail')"/>
+            <arg evaluator="xml" expression="get-property('BenefId2IssuePlace')"/>
+            <arg evaluator="xml" expression="get-property('BenefBranchCode')"/>
+            <arg evaluator="xml" expression="get-property('BenefBranchTelephone')"/>
+            <arg value=""/>
+            <arg evaluator="xml" expression="get-property('BenefAddress')"/>
+            <arg evaluator="xml" expression="get-property('BenefAddress2')"/>
+            <arg evaluator="xml" expression="get-property('BenefPostcode')"/>
+            <arg evaluator="xml" expression="get-property('BenefCity')"/>
+            <arg evaluator="xml" expression="get-property('BankRef')"/>
+            <arg evaluator="xml" expression="get-property('BenefBank')"/>
+            <arg evaluator="xml" expression="get-property('BenefAcType')"/>
+            <arg value=""/>
+            <arg evaluator="xml" expression="get-property('BenefBranchThirdPartyId')"/>
+            <arg evaluator="xml" expression="get-property('BankBranchName')"/>
+            <arg evaluator="xml" expression="get-property('BankBranchCode')"/>
+            <arg evaluator="xml" expression="get-property('TransactionReference')"/>
+            <arg evaluator="xml" expression="get-property('TransactionType')"/>
+            <arg evaluator="xml" expression="get-property('PaymentMethod')"/>
+            <arg evaluator="xml" expression="get-property('Status')"/>
+            <arg evaluator="xml" expression="get-property('ReceiveAmount')"/>
+            <arg evaluator="xml" expression="get-property('SendAmount')"/>
+            <arg evaluator="xml" expression="get-property('Rate')"/>
+            <arg evaluator="xml" expression="get-property('AgentTransRef')"/>
+            <arg value=""/>
+            <arg evaluator="xml" expression="get-property('AgentCode')"/>
+            <arg evaluator="xml" expression="get-property('AgentFullName')"/>
+            <arg evaluator="xml" expression="get-property('AgentTellerUserId')"/>
+            <arg evaluator="xml" expression="get-property('AgentTellerFname')"/>
+            <arg evaluator="xml" expression="get-property('AgentTellerLName')"/>
+            <arg evaluator="xml" expression="get-property('AgentTellerLocation')"/>
+        </args>
+    </payloadFactory>
+    <log level="full"/>
+    <call>
+        <endpoint key="USIHubEndpoint"/>
+    </call>
+    <respond/>
+</sequence>

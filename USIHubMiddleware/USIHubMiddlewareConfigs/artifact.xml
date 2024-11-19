@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?><artifacts>
+    <artifact name="USIHub" groupId="com.evantagesoft.usihub.api" version="1.0.0" type="synapse/api" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/api/USIHub.xml</file>
+    </artifact>
+    <artifact name="USIHub_swagger" groupId="com.evantagesoft.usihub.metadata" version="1.0.0" type="synapse/metadata" serverRole="EnterpriseServiceBus">
+        <file>src/main/resources/metadata/USIHub_swagger.yaml</file>
+    </artifact>
+    <artifact name="USIHub_metadata" groupId="com.evantagesoft.usihub.metadata" version="1.0.0" type="synapse/metadata" serverRole="EnterpriseServiceBus">
+        <file>src/main/resources/metadata/USIHub_metadata.yaml</file>
+    </artifact>
+    <artifact name="BusinessRuleSequence" groupId="com.evantagesoft.usihub.sequence" version="1.0.0" type="synapse/sequence" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/sequences/BusinessRuleSequence.xml</file>
+    </artifact>
+    <artifact name="ProcessResponse" groupId="com.evantagesoft.usihub.sequence" version="1.0.0" type="synapse/sequence" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/sequences/ProcessResponse.xml</file>
+    </artifact>
+</artifacts>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence name="R1TransactionIterationSequence" trace="disable" xmlns="http://ws.apache.org/ns/synapse">
+    <log level="full"/>
+    <property expression="//count" name="TransactionCount" scope="default" type="STRING"/>
+    <log level="custom">
+        <property expression="get-property('TransactionCount')" name="TransactionCountLog"/>
+    </log>
+    <switch source="get-property('TransactionCount')">
+        <case regex="0">
+            <payloadFactory media-type="xml">
+                <format>
+                    <error>
+                        <message>Transaction not found.</message>
+                    </error>
+                </format>
+                <args/>
+            </payloadFactory>
+            <respond/>
+        </case>
+        <default>
+            <iterate expression="//transaction" id="payoutAccount" sequential="true">
+                <target>
+                    <sequence>
+                        <store messageStore="PayoutTransactionStore" sequence="R1GetPayoutTransactionDetailsSequence"/>
+                    </sequence>
+                </target>
+            </iterate>
+        </default>
+    </switch>
+    <respond/>
+</sequence>

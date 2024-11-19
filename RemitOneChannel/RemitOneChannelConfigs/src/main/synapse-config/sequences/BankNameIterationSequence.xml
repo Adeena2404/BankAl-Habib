@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence name="BankNameIterationSequence" trace="disable" xmlns="http://ws.apache.org/ns/synapse">
+    <iterate expression="//*[local-name()='Bank']" id="BankNameIteration" sequential="true">
+        <target>
+            <sequence>
+                <property expression="//*[local-name()='bank_name']" name="BankName" scope="default" type="STRING"/>
+                <store messageStore="BankNameStore" sequence="R1GetPayoutTransactionsSequence"/>
+            </sequence>
+        </target>
+    </iterate>
+</sequence>
