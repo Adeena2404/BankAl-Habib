@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<api context="/BAH" name="BAHConnector" xmlns="http://ws.apache.org/ns/synapse">
+    <resource methods="POST" uri-template="/CreateTransactionBAH">
+        <inSequence>
+            <sequence key="BAHDataMappingSequence"/>
+        </inSequence>
+        <outSequence/>
+        <faultSequence/>
+    </resource>
+</api>
